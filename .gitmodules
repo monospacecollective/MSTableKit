@@ -1,0 +1,6 @@
+[submodule "Vendor/UIColor-Utilities"]
+	path = Vendor/UIColor-Utilities
+	url = https://github.com/fcanas/uicolor-utilities.git
+[submodule "Vendor/KGNoise"]
+	path = Vendor/KGNoise
+	url = https://github.com/kgn/KGNoise.git
