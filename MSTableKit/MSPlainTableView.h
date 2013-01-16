@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+// Cells
 #import "MSPlainTableViewCell.h"
 #import "MSRightDetailPlainTableViewCell.h"
 #import "MSSubtitleDetailPlainTableViewCell.h"
 
+// Headers
 #import "MSPlainTableViewHeaderView.h"
 
 @interface MSPlainTableView : UITableView
+
+@property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
 @end

@@ -9,17 +9,11 @@
 #import "MSPlainTableViewCell.h"
 #import "MSPlainTableView.h"
 
-#define LAYOUT_DEBUG
-
 @interface MSPlainTableViewCell ()
 
 @property (nonatomic, strong) UIView *selectionView;
 @property (nonatomic, strong) UIView *highlightView;
 @property (nonatomic, strong) UIView *shadowView;
-
-- (void)initialize;
-- (void)configureViews;
-- (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated;
 
 @end
 
@@ -29,6 +23,8 @@
 
 + (void)initialize
 {
+    [super initialize];
+    
     UIColor *defaultTextColor = [UIColor blackColor];
     [[self.class appearance] setTextColor:defaultTextColor];
     
@@ -50,17 +46,9 @@
 {
     [super layoutSubviews];
     
-#if defined(LAYOUT_DEBUG)
-    for (UIView *subview in self.contentView.subviews) {
-        if ([subview isKindOfClass:UILabel.class]) {
-            subview.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        }
-    }
-#endif
-    
     self.backgroundGradient.frame = self.bounds;
     
-    if ([self.superview isKindOfClass:MSPlainTableView.class]) {
+    if ([self.superview isKindOfClass:MSPlainTableView.class]) {        
         MSPlainTableView *enclosingTableView = (MSPlainTableView *)self.superview;
         self.highlightView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, 1.0);
         NSIndexPath *indexPath = [enclosingTableView indexPathForCell:self];
@@ -76,59 +64,30 @@
     }
 }
 
-#pragma mark - UITableViewCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
-    [super setHighlighted:highlighted animated:animated];
-    [self updateBackgroundState:highlighted animated:animated];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    [self updateBackgroundState:selected animated:animated];
-}
-
 #pragma mark - MSTableViewCell
 
 - (void)initialize
 {
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.detailTextLabel.backgroundColor = [UIColor clearColor];
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    [super initialize];
     self.selectionView = [[UIView alloc] init];
-    [self insertSubview:self.selectionView atIndex:0.0];
+    [self insertSubview:self.selectionView atIndex:0];
     self.selectionView.alpha = 0.0;
-    
     self.highlightView = [[UIView alloc] init];
-    [self insertSubview:self.highlightView atIndex:0.0];
-    
+    [self insertSubview:self.highlightView atIndex:0];
     self.shadowView = [[UIView alloc] init];
-    [self insertSubview:self.shadowView atIndex:0.0];
-    
+    [self insertSubview:self.shadowView atIndex:0];
     [self configureViews];
 }
 
 - (void)configureViews
 {
+    [super configureViews];
+    
+    self.backgroundColor = [UIColor clearColor];
+    
     self.selectionView.backgroundColor = self.selectionColor;
     self.highlightView.backgroundColor = self.etchHighlightColor;
     self.shadowView.backgroundColor = self.etchShadowColor;
-    
-    self.textLabel.textColor = self.titleTextColor;
-    self.detailTextLabel.textColor = self.detailTextColor;
     
     if (self.backgroundGradient && ![self.layer.sublayers containsObject:self.backgroundGradient]) {
         if (self.backgroundGradient.superlayer) {
@@ -146,6 +105,8 @@
 
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated
 {
+    [super updateBackgroundState:darkened animated:animated];
+    
     [self configureViews];
     
     void(^updateBackgroundState)() = ^() {
@@ -157,7 +118,6 @@
     } else {
         updateBackgroundState();
     }
-    [self setNeedsDisplay];
 }
 
 @end

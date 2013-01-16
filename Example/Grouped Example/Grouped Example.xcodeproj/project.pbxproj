@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		3A257FA716A47F4E00937857 /* MSRightDetailGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A257FA616A47F4E00937857 /* MSRightDetailGroupedTableViewCell.m */; };
-		3A257FAA16A4866100937857 /* MSSubtitleDetailGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A257FA916A4866000937857 /* MSSubtitleDetailGroupedTableViewCell.m */; };
-		3A257FAD16A4970000937857 /* MSGroupedTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A257FAC16A4970000937857 /* MSGroupedTableViewHeaderView.m */; };
-		3A257FB016A4A31800937857 /* MSButtonGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A257FAF16A4A31800937857 /* MSButtonGroupedTableViewCell.m */; };
-		3A5AC63016A2464E006F5A3F /* MSGroupedCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5AC62F16A2464E006F5A3F /* MSGroupedCellBackgroundView.m */; };
-		3A5AC63316A248C3006F5A3F /* MSGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5AC63216A248C3006F5A3F /* MSGroupedTableViewCell.m */; };
-		3A5AC63616A248EC006F5A3F /* MSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5AC63516A248EC006F5A3F /* MSTableViewCell.m */; };
-		3A8BC61616A35CA300800998 /* MSGroupedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BC61516A35CA300800998 /* MSGroupedTableView.m */; };
 		3AAC376B16A740EE0022B04D /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC376516A740EE0022B04D /* UIColor+Expanded.m */; };
 		3AAC376F16A741150022B04D /* KGNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC376E16A741150022B04D /* KGNoise.m */; };
+		3AAC379316A74A070022B04D /* MSGroupedCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC378716A74A050022B04D /* MSGroupedCellBackgroundView.m */; };
+		3AAC379416A74A070022B04D /* MSButtonGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC378816A74A060022B04D /* MSButtonGroupedTableViewCell.m */; };
+		3AAC379516A74A070022B04D /* MSGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC378B16A74A060022B04D /* MSGroupedTableViewCell.m */; };
+		3AAC379616A74A070022B04D /* MSGroupedTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC378D16A74A060022B04D /* MSGroupedTableViewHeaderView.m */; };
+		3AAC379716A74A070022B04D /* MSSubtitleDetailGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC378F16A74A060022B04D /* MSSubtitleDetailGroupedTableViewCell.m */; };
+		3AAC379816A74A070022B04D /* MSGroupedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC379116A74A060022B04D /* MSGroupedTableView.m */; };
+		3AAC379B16A74A3B0022B04D /* MSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC379A16A74A3B0022B04D /* MSTableViewCell.m */; };
 		3ABBBCA1168BF38000CBB5C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBBCA0168BF38000CBB5C1 /* UIKit.framework */; };
 		3ABBBCA3168BF38000CBB5C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBBCA2168BF38000CBB5C1 /* Foundation.framework */; };
 		3ABBBCA5168BF38000CBB5C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBBCA4168BF38000CBB5C1 /* CoreGraphics.framework */; };
@@ -33,24 +33,24 @@
 /* Begin PBXFileReference section */
 		3A257FA516A47F4D00937857 /* MSRightDetailGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRightDetailGroupedTableViewCell.h; sourceTree = "<group>"; };
 		3A257FA616A47F4E00937857 /* MSRightDetailGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRightDetailGroupedTableViewCell.m; sourceTree = "<group>"; };
-		3A257FA816A4866000937857 /* MSSubtitleDetailGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSSubtitleDetailGroupedTableViewCell.h; path = ../../MSTableKit/MSSubtitleDetailGroupedTableViewCell.h; sourceTree = "<group>"; };
-		3A257FA916A4866000937857 /* MSSubtitleDetailGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSSubtitleDetailGroupedTableViewCell.m; path = ../../MSTableKit/MSSubtitleDetailGroupedTableViewCell.m; sourceTree = "<group>"; };
-		3A257FAB16A4970000937857 /* MSGroupedTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSGroupedTableViewHeaderView.h; path = ../../MSTableKit/MSGroupedTableViewHeaderView.h; sourceTree = "<group>"; };
-		3A257FAC16A4970000937857 /* MSGroupedTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSGroupedTableViewHeaderView.m; path = ../../MSTableKit/MSGroupedTableViewHeaderView.m; sourceTree = "<group>"; };
-		3A257FAE16A4A31800937857 /* MSButtonGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSButtonGroupedTableViewCell.h; path = ../../MSTableKit/MSButtonGroupedTableViewCell.h; sourceTree = "<group>"; };
-		3A257FAF16A4A31800937857 /* MSButtonGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSButtonGroupedTableViewCell.m; path = ../../MSTableKit/MSButtonGroupedTableViewCell.m; sourceTree = "<group>"; };
-		3A5AC62E16A2464E006F5A3F /* MSGroupedCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSGroupedCellBackgroundView.h; path = ../../MSTableKit/MSGroupedCellBackgroundView.h; sourceTree = "<group>"; };
-		3A5AC62F16A2464E006F5A3F /* MSGroupedCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSGroupedCellBackgroundView.m; path = ../../MSTableKit/MSGroupedCellBackgroundView.m; sourceTree = "<group>"; };
-		3A5AC63116A248C3006F5A3F /* MSGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSGroupedTableViewCell.h; path = ../../MSTableKit/MSGroupedTableViewCell.h; sourceTree = "<group>"; };
-		3A5AC63216A248C3006F5A3F /* MSGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSGroupedTableViewCell.m; path = ../../MSTableKit/MSGroupedTableViewCell.m; sourceTree = "<group>"; };
-		3A5AC63416A248EC006F5A3F /* MSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSTableViewCell.h; path = "../Plain Example/MSTableKit/MSTableViewCell.h"; sourceTree = "<group>"; };
-		3A5AC63516A248EC006F5A3F /* MSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSTableViewCell.m; path = "../Plain Example/MSTableKit/MSTableViewCell.m"; sourceTree = "<group>"; };
-		3A8BC61416A35CA300800998 /* MSGroupedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSGroupedTableView.h; path = ../../MSTableKit/MSGroupedTableView.h; sourceTree = "<group>"; };
-		3A8BC61516A35CA300800998 /* MSGroupedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSGroupedTableView.m; path = ../../MSTableKit/MSGroupedTableView.m; sourceTree = "<group>"; };
 		3AAC376416A740EE0022B04D /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
 		3AAC376516A740EE0022B04D /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
 		3AAC376D16A741150022B04D /* KGNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGNoise.h; sourceTree = "<group>"; };
 		3AAC376E16A741150022B04D /* KGNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGNoise.m; sourceTree = "<group>"; };
+		3AAC378716A74A050022B04D /* MSGroupedCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGroupedCellBackgroundView.m; sourceTree = "<group>"; };
+		3AAC378816A74A060022B04D /* MSButtonGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSButtonGroupedTableViewCell.m; sourceTree = "<group>"; };
+		3AAC378916A74A060022B04D /* MSButtonGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSButtonGroupedTableViewCell.h; sourceTree = "<group>"; };
+		3AAC378A16A74A060022B04D /* MSGroupedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGroupedTableView.h; sourceTree = "<group>"; };
+		3AAC378B16A74A060022B04D /* MSGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGroupedTableViewCell.m; sourceTree = "<group>"; };
+		3AAC378C16A74A060022B04D /* MSGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGroupedTableViewCell.h; sourceTree = "<group>"; };
+		3AAC378D16A74A060022B04D /* MSGroupedTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGroupedTableViewHeaderView.m; sourceTree = "<group>"; };
+		3AAC378E16A74A060022B04D /* MSGroupedTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGroupedTableViewHeaderView.h; sourceTree = "<group>"; };
+		3AAC378F16A74A060022B04D /* MSSubtitleDetailGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSubtitleDetailGroupedTableViewCell.m; sourceTree = "<group>"; };
+		3AAC379016A74A060022B04D /* MSSubtitleDetailGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSubtitleDetailGroupedTableViewCell.h; sourceTree = "<group>"; };
+		3AAC379116A74A060022B04D /* MSGroupedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGroupedTableView.m; sourceTree = "<group>"; };
+		3AAC379216A74A060022B04D /* MSGroupedCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGroupedCellBackgroundView.h; sourceTree = "<group>"; };
+		3AAC379916A74A3B0022B04D /* MSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableViewCell.h; sourceTree = "<group>"; };
+		3AAC379A16A74A3B0022B04D /* MSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableViewCell.m; sourceTree = "<group>"; };
 		3ABBBC9D168BF38000CBB5C1 /* Grouped.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grouped.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ABBBCA0168BF38000CBB5C1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3ABBBCA2168BF38000CBB5C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,25 +97,26 @@
 		3A8BC61716A367A300800998 /* MSTableKit */ = {
 			isa = PBXGroup;
 			children = (
-				3A5AC63416A248EC006F5A3F /* MSTableViewCell.h */,
-				3A5AC63516A248EC006F5A3F /* MSTableViewCell.m */,
-				3A8BC61416A35CA300800998 /* MSGroupedTableView.h */,
-				3A8BC61516A35CA300800998 /* MSGroupedTableView.m */,
-				3A5AC63116A248C3006F5A3F /* MSGroupedTableViewCell.h */,
-				3A5AC63216A248C3006F5A3F /* MSGroupedTableViewCell.m */,
-				3A257FAE16A4A31800937857 /* MSButtonGroupedTableViewCell.h */,
-				3A257FAF16A4A31800937857 /* MSButtonGroupedTableViewCell.m */,
-				3A257FA816A4866000937857 /* MSSubtitleDetailGroupedTableViewCell.h */,
-				3A257FA916A4866000937857 /* MSSubtitleDetailGroupedTableViewCell.m */,
+				3AAC379916A74A3B0022B04D /* MSTableViewCell.h */,
+				3AAC379A16A74A3B0022B04D /* MSTableViewCell.m */,
+				3AAC378A16A74A060022B04D /* MSGroupedTableView.h */,
+				3AAC379116A74A060022B04D /* MSGroupedTableView.m */,
+				3AAC378C16A74A060022B04D /* MSGroupedTableViewCell.h */,
+				3AAC378B16A74A060022B04D /* MSGroupedTableViewCell.m */,
+				3AAC378916A74A060022B04D /* MSButtonGroupedTableViewCell.h */,
+				3AAC378816A74A060022B04D /* MSButtonGroupedTableViewCell.m */,
+				3AAC378F16A74A060022B04D /* MSSubtitleDetailGroupedTableViewCell.m */,
+				3AAC379016A74A060022B04D /* MSSubtitleDetailGroupedTableViewCell.h */,
 				3A257FA516A47F4D00937857 /* MSRightDetailGroupedTableViewCell.h */,
 				3A257FA616A47F4E00937857 /* MSRightDetailGroupedTableViewCell.m */,
-				3A5AC62E16A2464E006F5A3F /* MSGroupedCellBackgroundView.h */,
-				3A5AC62F16A2464E006F5A3F /* MSGroupedCellBackgroundView.m */,
-				3A257FAB16A4970000937857 /* MSGroupedTableViewHeaderView.h */,
-				3A257FAC16A4970000937857 /* MSGroupedTableViewHeaderView.m */,
+				3AAC379216A74A060022B04D /* MSGroupedCellBackgroundView.h */,
+				3AAC378716A74A050022B04D /* MSGroupedCellBackgroundView.m */,
+				3AAC378D16A74A060022B04D /* MSGroupedTableViewHeaderView.m */,
+				3AAC378E16A74A060022B04D /* MSGroupedTableViewHeaderView.h */,
 			);
 			name = MSTableKit;
-			sourceTree = "<group>";
+			path = ../../MSTableKit;
+			sourceTree = SOURCE_ROOT;
 		};
 		3AAC376016A740EE0022B04D /* UIColor-Utilities */ = {
 			isa = PBXGroup;
@@ -261,16 +262,16 @@
 				3ABBBCAD168BF38000CBB5C1 /* main.m in Sources */,
 				3ABBBCB1168BF38000CBB5C1 /* MSAppDelegate.m in Sources */,
 				3ABBBCC1168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m in Sources */,
-				3A5AC63016A2464E006F5A3F /* MSGroupedCellBackgroundView.m in Sources */,
-				3A5AC63316A248C3006F5A3F /* MSGroupedTableViewCell.m in Sources */,
-				3A5AC63616A248EC006F5A3F /* MSTableViewCell.m in Sources */,
-				3A8BC61616A35CA300800998 /* MSGroupedTableView.m in Sources */,
 				3A257FA716A47F4E00937857 /* MSRightDetailGroupedTableViewCell.m in Sources */,
-				3A257FAA16A4866100937857 /* MSSubtitleDetailGroupedTableViewCell.m in Sources */,
-				3A257FAD16A4970000937857 /* MSGroupedTableViewHeaderView.m in Sources */,
-				3A257FB016A4A31800937857 /* MSButtonGroupedTableViewCell.m in Sources */,
 				3AAC376B16A740EE0022B04D /* UIColor+Expanded.m in Sources */,
 				3AAC376F16A741150022B04D /* KGNoise.m in Sources */,
+				3AAC379316A74A070022B04D /* MSGroupedCellBackgroundView.m in Sources */,
+				3AAC379416A74A070022B04D /* MSButtonGroupedTableViewCell.m in Sources */,
+				3AAC379516A74A070022B04D /* MSGroupedTableViewCell.m in Sources */,
+				3AAC379616A74A070022B04D /* MSGroupedTableViewHeaderView.m in Sources */,
+				3AAC379716A74A070022B04D /* MSSubtitleDetailGroupedTableViewCell.m in Sources */,
+				3AAC379816A74A070022B04D /* MSGroupedTableView.m in Sources */,
+				3AAC379B16A74A3B0022B04D /* MSTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,12 +6,9 @@
 //  Copyright (c) 2012 Monospace Ltd. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MSTableViewCell.h"
 
-@interface MSPlainTableViewCell : UITableViewCell <UIAppearanceContainer>
-
-@property (strong, nonatomic) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
-@property (strong, nonatomic) UIColor *detailTextColor UI_APPEARANCE_SELECTOR;
+@interface MSPlainTableViewCell : MSTableViewCell <UIAppearanceContainer>
 
 @property (strong, nonatomic) UIColor *selectionColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *etchHighlightColor UI_APPEARANCE_SELECTOR;

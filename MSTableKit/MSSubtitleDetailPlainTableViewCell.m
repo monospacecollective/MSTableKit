@@ -23,7 +23,6 @@
 {
     [super layoutSubviews];
     
-    self.textLabel.frame = CGRectOffset(self.textLabel.frame, 0.0, 1.0);
     self.detailTextLabel.frame = CGRectOffset(self.detailTextLabel.frame, 0.0, -2.0);
 }
 

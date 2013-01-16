@@ -117,7 +117,7 @@
 {
     self.textLabel.backgroundColor = [UIColor clearColor];
     
-    self.backgroundView.backgroundColor = self.superview.backgroundColor;
+    self.backgroundView.backgroundColor = self.backgroundColor;
     
     self.topHighlightLine.backgroundColor = self.topEtchHighlightColor;
     self.topShadowLine.backgroundColor = self.topEtchShadowColor;

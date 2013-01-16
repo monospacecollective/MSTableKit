@@ -218,7 +218,8 @@
 				3ABBA54A168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.h */,
 				3ABBA54B168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m */,
 			);
-			path = MSTableKit;
+			name = MSTableKit;
+			path = ../../MSTableKit;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
