@@ -31,13 +31,13 @@ typedef NS_ENUM(NSUInteger, MSGroupedCellBackgroundViewType) {
 - (void)setInnerShadowOffset:(CGSize)shadowOffset forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 - (void)setInnerShadowBlur:(CGFloat)shadowBlur forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
-- (UIColor *)borderColorForState:(UIControlState)state;
-- (UIColor *)fillColorForState:(UIControlState)state;
-- (UIColor *)shadowColorForState:(UIControlState)state;
-- (CGSize)shadowOffsetForState:(UIControlState)state;
-- (CGFloat)shadowBlurForState:(UIControlState)state;
-- (UIColor *)innerShadowColorForState:(UIControlState)state;
-- (CGSize)innerShadowOffsetForState:(UIControlState)state;
-- (CGFloat)innerShadowBlurForState:(UIControlState)state;
+- (UIColor *)borderColorForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (UIColor *)fillColorForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (UIColor *)shadowColorForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (CGSize)shadowOffsetForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (CGFloat)shadowBlurForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (UIColor *)innerShadowColorForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (CGSize)innerShadowOffsetForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (CGFloat)innerShadowBlurForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
 @end

@@ -47,24 +47,23 @@
         self.backgroundColorGradientEnabled = YES;
         self.middleBottomUsesShadowColorForNormalInnerShadowColor = YES;
         
-        // Color Defaults
-        [self setBorderColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
-        [self setBorderColor:[UIColor colorWithWhite:0.4 alpha:1.0] forState:UIControlStateHighlighted];
+        // Color Defaults, have to do it this was as it messes up UIAppearance
+        _borderColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithWhite:0.5 alpha:1.0];
+        _borderColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithWhite:0.4 alpha:1.0];
         
-        [self setFillColor:[[UIColor blackColor] colorWithAlphaComponent:0.1] forState:UIControlStateNormal];
-        [self setFillColor:[[UIColor blackColor] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
-
-        UIColor *defaultShadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-        [self setShadowColor:defaultShadowColor forState:UIControlStateNormal];
-        [self setShadowColor:defaultShadowColor forState:UIControlStateHighlighted];
+        _fillColorDictionary[@(UIControlStateNormal)] = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+        _fillColorDictionary[@(UIControlStateHighlighted)] = [[UIColor blackColor] colorWithAlphaComponent:0.2];
         
-        [self setInnerShadowColor:[UIColor colorWithWhite:0.0 alpha:0.1] forState:UIControlStateNormal];
-        [self setInnerShadowBlur:0.0 forState:UIControlStateNormal];
-        [self setInnerShadowOffset:CGSizeMake(0.0, 1.0) forState:UIControlStateNormal];
+        _shadowColorDictionary[@(UIControlStateNormal)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+        _shadowColorDictionary[@(UIControlStateHighlighted)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         
-        [self setInnerShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5] forState:UIControlStateHighlighted];
-        [self setInnerShadowBlur:4.0 forState:UIControlStateHighlighted];
-        [self setInnerShadowOffset:CGSizeMake(0.0, 0.5) forState:UIControlStateHighlighted];
+        _innerShadowColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithWhite:0.0 alpha:0.1];
+        _innerShadowBlurDictionary[@(UIControlStateNormal)] = @(0.0);
+        _innerShadowOffsetDictionary[@(UIControlStateNormal)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)];
+        
+        _innerShadowColorDictionary[@(UIControlStateHighlighted)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+        _innerShadowBlurDictionary[@(UIControlStateHighlighted)] = @(4.0);
+        _innerShadowOffsetDictionary[@(UIControlStateHighlighted)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 0.5)];
     }
     return self;
 }
