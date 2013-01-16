@@ -8,6 +8,7 @@
 
 #import "MSAppDelegate.h"
 #import "MSExampleGroupedTableViewController.h"
+#import "KGNoise.h"
 
 @implementation MSAppDelegate
 

@@ -7,6 +7,7 @@
 //
 
 #import "MSGroupedCellBackgroundView.h"
+#import "UIColor+Expanded.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MSGroupedCellBackgroundView() {

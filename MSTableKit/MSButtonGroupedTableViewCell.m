@@ -7,6 +7,7 @@
 //
 
 #import "MSButtonGroupedTableViewCell.h"
+#import "UIColor+Expanded.h"
 
 @interface MSButtonGroupedTableViewCell () {
     UIColor *_buttonbackgroundColor;
