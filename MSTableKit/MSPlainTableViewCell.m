@@ -8,6 +8,7 @@
 
 #import "MSPlainTableViewCell.h"
 #import "MSPlainTableView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MSPlainTableViewCell ()
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class CAGradientLayer;
+
 @interface MSPlainTableViewHeaderView : UITableViewHeaderFooterView <UIAppearanceContainer>
 
 @property (strong, nonatomic) UIColor *textColor UI_APPEARANCE_SELECTOR;

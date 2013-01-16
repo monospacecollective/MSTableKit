@@ -8,6 +8,8 @@
 
 #import "MSTableViewCell.h"
 
+@class CAGradientLayer;
+
 @interface MSPlainTableViewCell : MSTableViewCell <UIAppearanceContainer>
 
 @property (strong, nonatomic) UIColor *selectionColor UI_APPEARANCE_SELECTOR;

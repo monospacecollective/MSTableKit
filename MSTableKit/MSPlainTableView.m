@@ -9,6 +9,7 @@
 #import "MSPlainTableView.h"
 #import "MSPlainTableViewCell.h"
 #import "KGNoise.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MSPlainTableView ()
 
