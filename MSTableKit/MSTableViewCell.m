@@ -43,6 +43,15 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
 - (void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
 {
     [super setAccessoryType:accessoryType];
@@ -61,6 +70,7 @@
             break;
         }
         case UITableViewCellAccessoryCheckmark: {
+            // Has a nice checkmark - we want to use a label so that text customization works
             self.accessoryTextLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:32.0];
             self.accessoryTextLabel.text = @"\U00002713 ";
             [self.accessoryTextLabel sizeToFit];
@@ -77,7 +87,6 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    
     self.detailTextLabel.text = nil;
     self.textLabel.text = nil;
 }

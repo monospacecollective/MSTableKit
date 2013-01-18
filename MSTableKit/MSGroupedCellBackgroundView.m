@@ -61,7 +61,7 @@
         _innerShadowBlurDictionary[@(UIControlStateNormal)] = @(0.0);
         _innerShadowOffsetDictionary[@(UIControlStateNormal)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)];
         
-        _innerShadowColorDictionary[@(UIControlStateHighlighted)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+        _innerShadowColorDictionary[@(UIControlStateHighlighted)] = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         _innerShadowBlurDictionary[@(UIControlStateHighlighted)] = @(4.0);
         _innerShadowOffsetDictionary[@(UIControlStateHighlighted)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 0.5)];
     }

@@ -62,15 +62,6 @@
     self.groupedCellBackgroundView = [[MSGroupedCellBackgroundView alloc] init];
     self.backgroundView = self.groupedCellBackgroundView;
     [self configureViews];
-    
-    self.textLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    self.textLabel.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.5];
-    
-    self.detailTextLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    self.detailTextLabel.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.5];
-    
-    self.accessoryTextLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    self.accessoryTextLabel.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.5];
 }
 
 #pragma mark - MSGroupedTableViewCell
