@@ -7,9 +7,9 @@
 //
 
 #import "MSAppDelegate.h"
-#import "MSExampleGroupedTableViewController.h"
 #import "KGNoise.h"
-#import "MSTableViewCell.h"
+#import "MSTableKit.h"
+#import "MSExampleGroupedTableViewController.h"
 
 @implementation MSAppDelegate
 

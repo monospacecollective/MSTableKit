@@ -28,6 +28,7 @@
 		3ABBBCB7168BF38000CBB5C1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABBBCB6168BF38000CBB5C1 /* Default-568h@2x.png */; };
 		3ABBBCBE168BF3A700CBB5C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBBCBD168BF3A700CBB5C1 /* QuartzCore.framework */; };
 		3ABBBCC1168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBBCC0168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m */; };
+		3AFE5CC516A9EA98002D34ED /* MSTableKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		3ABBBCBD168BF3A700CBB5C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3ABBBCBF168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSExampleGroupedTableViewController.h; sourceTree = "<group>"; };
 		3ABBBCC0168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSExampleGroupedTableViewController.m; sourceTree = "<group>"; };
+		3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSTableKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		3A8BC61716A367A300800998 /* MSTableKit */ = {
 			isa = PBXGroup;
 			children = (
+				3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */,
 				3AAC379916A74A3B0022B04D /* MSTableViewCell.h */,
 				3AAC379A16A74A3B0022B04D /* MSTableViewCell.m */,
 				3AAC378A16A74A060022B04D /* MSGroupedTableView.h */,
@@ -195,6 +198,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		3AFE5CC416A9EA87002D34ED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AFE5CC516A9EA98002D34ED /* MSTableKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		3ABBBC9C168BF38000CBB5C1 /* Grouped Example */ = {
 			isa = PBXNativeTarget;
@@ -203,6 +217,7 @@
 				3ABBBC99168BF38000CBB5C1 /* Sources */,
 				3ABBBC9A168BF38000CBB5C1 /* Frameworks */,
 				3ABBBC9B168BF38000CBB5C1 /* Resources */,
+				3AFE5CC416A9EA87002D34ED /* Headers */,
 			);
 			buildRules = (
 			);

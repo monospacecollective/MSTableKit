@@ -7,7 +7,7 @@
 //
 
 #import "MSExampleGroupedTableViewController.h"
-#import "MSGroupedTableView.h"
+#import "MSTableKit.h"
 
 NSString * const MSExampleCellReuseIdentifier = @"CellReuseIdentifier";
 NSString * const MSExampleRightDetailCellReuseIdentifier = @"RightDetailCellReuseIdentifier";
@@ -74,7 +74,7 @@ NSString * const MSExampleHeaderReuseIdentifier = @"HeaderReuseIdentifier";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.cellClasses.count + 1;
+    return (self.cellClasses.count + 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
