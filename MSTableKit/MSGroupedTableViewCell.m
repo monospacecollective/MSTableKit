@@ -9,13 +9,17 @@
 #import "MSGroupedTableViewCell.h"
 #import "MSGroupedCellBackgroundView.h"
 
-@interface MSGroupedTableViewCell ()
+@interface MSGroupedTableViewCell () {
+    MSGroupedTableViewCellSelectionStyle _selectionStyle;
+}
 
 - (void)updateGroupedCellBackgroundViewType;
 
 @end
 
 @implementation MSGroupedTableViewCell
+
+@dynamic selectionStyle;
 
 #pragma mark - UIView
 
@@ -59,6 +63,8 @@
 - (void)initialize
 {
     [super initialize];
+    [super setSelectionStyle:UITableViewCellSelectionStyleNone];
+    _selectionStyle = MSGroupedTableViewCellSelectionStyleIndent;
     self.groupedCellBackgroundView = [[MSGroupedCellBackgroundView alloc] init];
     self.backgroundView = self.groupedCellBackgroundView;
     [self configureViews];
@@ -85,6 +91,17 @@
             }
         }
     });
+}
+
+- (void)setSelectionStyle:(MSGroupedTableViewCellSelectionStyle)selectionStyle
+{
+    _selectionStyle = selectionStyle;
+    [self.groupedCellBackgroundView setNeedsDisplay];
+}
+
+- (MSGroupedTableViewCellSelectionStyle)selectionStyle
+{
+    return _selectionStyle;
 }
 
 @end

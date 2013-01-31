@@ -8,6 +8,8 @@
 
 #import "MSGroupedCellBackgroundView.h"
 #import "UIColor+Expanded.h"
+#import "KGNoise.h"
+#import "MSGroupedTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MSGroupedCellBackgroundView() {
@@ -23,6 +25,8 @@
     MSGroupedCellBackgroundViewType _type;
 }
 
+- (CGPathRef)cellPathWithInset:(CGSize)insets offset:(CGSize)offset cornerRadius:(CGFloat)cornerRadius;
+
 @end
 
 @implementation MSGroupedCellBackgroundView
@@ -33,6 +37,16 @@
 {
     if (self = [super initWithFrame:frame]) {
         
+        self.opaque = NO;
+        
+        _cornerRadius = 4.0;
+        _backgroundColorGradientEnabled = NO;
+        _middleBottomUsesShadowColorForNormalInnerShadowColor = YES;
+        
+        _backgroundNoiseEnabled = NO;
+        _noiseBlendMode = kCGBlendModeMultiply;
+        _noiseOpacity = 0.1;
+        
         _borderColorDictionary = [[NSMutableDictionary alloc] init];
         _fillColorDictionary = [[NSMutableDictionary alloc] init];
         _shadowColorDictionary = [[NSMutableDictionary alloc] init];
@@ -41,11 +55,6 @@
         _innerShadowColorDictionary = [[NSMutableDictionary alloc] init];
         _innerShadowOffsetDictionary = [[NSMutableDictionary alloc] init];
         _innerShadowBlurDictionary = [[NSMutableDictionary alloc] init];
-        
-        self.cornerRadius = 4.0;
-        self.opaque = NO;
-        self.backgroundColorGradientEnabled = YES;
-        self.middleBottomUsesShadowColorForNormalInnerShadowColor = YES;
         
         // Color Defaults, have to do it this was as it messes up UIAppearance
         _borderColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithWhite:0.5 alpha:1.0];
@@ -68,66 +77,13 @@
     return self;
 }
 
--(void)drawRect:(CGRect)rect 
-{   
-    CGPathRef(^cellPath)(CGFloat dx, CGFloat dy, CGFloat cornerRadius) = ^CGPathRef(CGFloat insetdx, CGFloat insetdy, CGFloat cornerRadius) {
-        
-        CGFloat minx = CGRectGetMinX(rect), midx = CGRectGetMidX(rect), maxx = CGRectGetMaxX(rect);
-        CGFloat miny = CGRectGetMinY(rect), midy = CGRectGetMidY(rect), maxy = CGRectGetMaxY(rect);
-        
-        minx += insetdx;
-        maxx -= insetdx;
-        
-        CGMutablePathRef path = CGPathCreateMutable();
-        if (_type == MSGroupedCellBackgroundViewTypeTop) {
-            
-            miny += insetdy;
-            maxy -= insetdy;
-            
-            CGPathMoveToPoint(path, NULL, minx, maxy);
-            CGPathAddArcToPoint(path, NULL, minx, miny, midx, miny, cornerRadius);
-            CGPathAddArcToPoint(path, NULL, maxx, miny, maxx, maxy, cornerRadius);
-            CGPathAddLineToPoint(path, NULL, maxx, maxy);
-            
-        } else if (_type == MSGroupedCellBackgroundViewTypeBottom) {
-            
-            miny = (miny - 1.0) + insetdy;
-            maxy -= (1.0 + insetdy);
-            
-            CGPathMoveToPoint(path, NULL, minx, miny);
-            CGPathAddArcToPoint(path, NULL, minx, maxy, midx, maxy, cornerRadius);
-            CGPathAddArcToPoint(path, NULL, maxx, maxy, maxx, miny, cornerRadius);
-            CGPathAddLineToPoint(path, NULL, maxx, miny);
-            
-        } else if (_type == MSGroupedCellBackgroundViewTypeMiddle) {
-            
-            miny = (miny - 1.0) + insetdy;
-            maxy -= insetdy;
-            
-            CGPathMoveToPoint(path, NULL, minx, miny);
-            CGPathAddLineToPoint(path, NULL, maxx, miny);
-            CGPathAddLineToPoint(path, NULL, maxx, maxy);
-            CGPathAddLineToPoint(path, NULL, minx, maxy);
-            
-        } else if (_type == MSGroupedCellBackgroundViewTypeSingle) {
-            
-            miny += insetdy;
-            maxy -= (1.0 + insetdy);
-            
-            CGPathMoveToPoint(path, NULL, minx, midy);
-            CGPathAddArcToPoint(path, NULL, minx, miny, midx, miny, cornerRadius);
-            CGPathAddArcToPoint(path, NULL, maxx, miny, maxx, midy, cornerRadius);
-            CGPathAddArcToPoint(path, NULL, maxx, maxy, midx, maxy, cornerRadius);
-            CGPathAddArcToPoint(path, NULL, minx, maxy, minx, midy, cornerRadius);
-        }
-        CGPathCloseSubpath(path);
-        return path;
-    };
+-(void)drawRect:(CGRect)rect
+{
+    NSParameterAssert([self.superview isKindOfClass:MSGroupedTableViewCell.class]);
+    MSGroupedTableViewCell *containingCell = (MSGroupedTableViewCell *)self.superview;
     
-    NSParameterAssert([self.superview isKindOfClass:UITableViewCell.class]);
-    UITableViewCell *containingCell = (UITableViewCell *)self.superview;
-    BOOL highlighted = (containingCell.highlighted || containingCell.selected);
-    UIControlState controlState = (highlighted ? UIControlStateHighlighted : UIControlStateNormal);
+    BOOL drawHighlight = (containingCell.selectionStyle != MSGroupedTableViewCellSelectionStyleNone) && (containingCell.highlighted || containingCell.selected);
+    UIControlState controlState = (drawHighlight ? UIControlStateHighlighted : UIControlStateNormal);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -135,7 +91,7 @@
 #warning use provided shadow offset and blur radius
     if (_type == MSGroupedCellBackgroundViewTypeBottom ||
         _type == MSGroupedCellBackgroundViewTypeSingle) {
-        CGPathRef shadowPath = cellPath(0.5, 0.0, _cornerRadius);
+        CGPathRef shadowPath = [self cellPathForRect:rect inset:CGSizeMake(0.5, 0.0) offset:CGSizeZero cornerRadius:_cornerRadius];
         UIBezierPath *shadowBezierPath = [UIBezierPath bezierPathWithCGPath:shadowPath];
         CGPathRelease(shadowPath);
         [shadowBezierPath applyTransform:CGAffineTransformMakeTranslation(0.0, 0.5)];
@@ -144,7 +100,7 @@
     }
     
     // Border & Fill
-    CGPathRef borderPath = cellPath(0.5, 0.5, _cornerRadius);
+    CGPathRef borderPath = [self cellPathForRect:rect inset:CGSizeMake(0.5, 0.5) offset:CGSizeZero cornerRadius:_cornerRadius];
     UIBezierPath *borderBezierPath = [UIBezierPath bezierPathWithCGPath:borderPath];
     CGPathRelease(borderPath);
     
@@ -156,16 +112,22 @@
         CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
         CGColorSpaceRelease(colorSpace);
         CGContextSaveGState(context);
-        {
-            [borderBezierPath addClip];
-            CGPoint startPoint = CGPointMake(0.0, 0.0);
-            CGPoint endPoint = CGPointMake(0.0, rect.size.height);
-            CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
-        }
+        [borderBezierPath addClip];
+        CGPoint startPoint = CGPointMake(0.0, 0.0);
+        CGPoint endPoint = CGPointMake(0.0, rect.size.height);
+        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
         CGContextRestoreGState(context);
     } else {
         [[self fillColorForState:controlState] set];
         [borderBezierPath fill];
+    }
+    
+    // Background Noise
+    if (self.backgroundNoiseEnabled) {
+        CGContextSaveGState(context);
+        [borderBezierPath addClip];
+        [KGNoise drawNoiseWithOpacity:self.noiseOpacity andBlendMode:self.noiseBlendMode];
+        CGContextRestoreGState(context);
     }
     
     [[self borderColorForState:controlState] set];
@@ -181,7 +143,7 @@
     CGSize shadowOffset = [self innerShadowOffsetForState:controlState];
     CGFloat shadowBlurRadius = [self innerShadowBlurForState:controlState];
     
-    CGPathRef innerShadowPath = cellPath(1.0, 1.0, (_cornerRadius - 0.5));
+    CGPathRef innerShadowPath = [self cellPathForRect:rect inset:CGSizeMake(1.0, 1.0) offset:CGSizeZero cornerRadius:(_cornerRadius - 0.5)];
     UIBezierPath* innerShadowBezierPath = [UIBezierPath bezierPathWithCGPath:innerShadowPath];
     CGPathRelease(innerShadowPath);
     CGRect roundedRectangleBorderRect = CGRectInset([innerShadowBezierPath bounds], -shadowBlurRadius, -shadowBlurRadius);
@@ -191,20 +153,77 @@
     [roundedRectangleNegativePath appendPath:innerShadowBezierPath];
     roundedRectangleNegativePath.usesEvenOddFillRule = YES;
     CGContextSaveGState(context);
-    {
-        CGFloat xOffset = shadowOffset.width + round(roundedRectangleBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context, CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)), shadowBlurRadius, shadowColor);
-        [innerShadowBezierPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0);
-        [roundedRectangleNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [roundedRectangleNegativePath fill];
-    }
+    CGFloat xOffset = shadowOffset.width + round(roundedRectangleBorderRect.size.width);
+    CGFloat yOffset = shadowOffset.height;
+    CGContextSetShadowWithColor(context, CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)), shadowBlurRadius, shadowColor);
+    [innerShadowBezierPath addClip];
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0);
+    [roundedRectangleNegativePath applyTransform: transform];
+    [[UIColor grayColor] setFill];
+    [roundedRectangleNegativePath fill];
     CGContextRestoreGState(context);
 }
 
-#pragma mark - UIControlState Accessors 
+#pragma mark - MSGroupedCellBackgroundView
+
+- (CGPathRef)cellPathForRect:(CGRect)rect inset:(CGSize)insets offset:(CGSize)offset cornerRadius:(CGFloat)cornerRadius
+{
+    CGFloat insetdx = insets.width;
+    CGFloat insetdy = insets.height;
+    
+    CGFloat minx = CGRectGetMinX(rect), midx = CGRectGetMidX(rect), maxx = CGRectGetMaxX(rect);
+    CGFloat miny = CGRectGetMinY(rect), midy = CGRectGetMidY(rect), maxy = CGRectGetMaxY(rect);
+    
+    minx += insetdx;
+    maxx -= insetdx;
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    if (_type == MSGroupedCellBackgroundViewTypeTop) {
+        
+        miny += insetdy;
+        maxy -= insetdy;
+        
+        CGPathMoveToPoint(path, NULL, minx, maxy);
+        CGPathAddArcToPoint(path, NULL, minx, miny, midx, miny, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxx, miny, maxx, maxy, cornerRadius);
+        CGPathAddLineToPoint(path, NULL, maxx, maxy);
+        
+    } else if (_type == MSGroupedCellBackgroundViewTypeBottom) {
+        
+        miny = (miny - 1.0) + insetdy;
+        maxy -= (1.0 + insetdy);
+        
+        CGPathMoveToPoint(path, NULL, minx, miny);
+        CGPathAddArcToPoint(path, NULL, minx, maxy, midx, maxy, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxx, maxy, maxx, miny, cornerRadius);
+        CGPathAddLineToPoint(path, NULL, maxx, miny);
+        
+    } else if (_type == MSGroupedCellBackgroundViewTypeMiddle) {
+        
+        miny = (miny - 1.0) + insetdy;
+        maxy -= insetdy;
+        
+        CGPathMoveToPoint(path, NULL, minx, miny);
+        CGPathAddLineToPoint(path, NULL, maxx, miny);
+        CGPathAddLineToPoint(path, NULL, maxx, maxy);
+        CGPathAddLineToPoint(path, NULL, minx, maxy);
+        
+    } else if (_type == MSGroupedCellBackgroundViewTypeSingle) {
+        
+        miny += insetdy;
+        maxy -= (1.0 + insetdy);
+        
+        CGPathMoveToPoint(path, NULL, minx, midy);
+        CGPathAddArcToPoint(path, NULL, minx, miny, midx, miny, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxx, miny, maxx, midy, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxx, maxy, midx, maxy, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, minx, maxy, minx, midy, cornerRadius);
+    }
+    CGPathCloseSubpath(path);
+    return path;
+}
+
+#pragma mark - UIControlState Accessors
 
 - (void)setBorderColor:(UIColor *)borderColor forState:(UIControlState)state
 {

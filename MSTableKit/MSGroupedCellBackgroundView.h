@@ -17,10 +17,15 @@ typedef NS_ENUM(NSUInteger, MSGroupedCellBackgroundViewType) {
 
 @interface MSGroupedCellBackgroundView : UIView
 
-@property(nonatomic, assign) CGFloat cornerRadius;
-@property(nonatomic, assign) MSGroupedCellBackgroundViewType type;
-@property(nonatomic, assign) BOOL backgroundColorGradientEnabled;
-@property(nonatomic, assign) BOOL middleBottomUsesShadowColorForNormalInnerShadowColor;
+@property (nonatomic, assign) MSGroupedCellBackgroundViewType type;
+
+@property (nonatomic, assign) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) BOOL backgroundColorGradientEnabled UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) BOOL middleBottomUsesShadowColorForNormalInnerShadowColor UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, assign) BOOL backgroundNoiseEnabled UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat noiseOpacity UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGBlendMode noiseBlendMode UI_APPEARANCE_SELECTOR;
 
 - (void)setBorderColor:(UIColor *)borderColor forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 - (void)setFillColor:(UIColor *)borderColor forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
