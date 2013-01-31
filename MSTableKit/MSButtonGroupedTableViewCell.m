@@ -25,7 +25,9 @@
     
     self.groupedCellBackgroundView.backgroundColorGradientEnabled = YES;
     self.groupedCellBackgroundView.middleBottomUsesShadowColorForNormalInnerShadowColor = NO;
+    self.groupedCellBackgroundView.backgroundNoiseEnabled = YES;
     [self.groupedCellBackgroundView setInnerShadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3] forState:UIControlStateNormal];
+    
     self.textLabel.textAlignment = UITextAlignmentCenter;
     self.buttonBackgroundColor = [UIColor darkGrayColor];
 }
