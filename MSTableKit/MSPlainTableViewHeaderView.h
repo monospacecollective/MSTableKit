@@ -6,14 +6,13 @@
 //  Copyright (c) 2012 Team 11. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MSTableViewHeaderFooterView.h"
 
 @class CAGradientLayer;
 
-@interface MSPlainTableViewHeaderView : UITableViewHeaderFooterView <UIAppearanceContainer>
+@interface MSPlainTableViewHeaderView : MSTableViewHeaderFooterView
 
-@property (strong, nonatomic) UIColor *textColor UI_APPEARANCE_SELECTOR;
-
+@property (strong, nonatomic) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *topEtchHighlightColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *topEtchShadowColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *bottomEtchShadowColor UI_APPEARANCE_SELECTOR;

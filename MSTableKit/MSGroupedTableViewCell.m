@@ -9,9 +9,7 @@
 #import "MSGroupedTableViewCell.h"
 #import "MSGroupedCellBackgroundView.h"
 
-@interface MSGroupedTableViewCell () {
-    MSGroupedTableViewCellSelectionStyle _selectionStyle;
-}
+@interface MSGroupedTableViewCell ()
 
 - (void)updateGroupedCellBackgroundViewType;
 
@@ -29,11 +27,6 @@
     [self updateGroupedCellBackgroundViewType];
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-}
-
 #pragma mark - UITableViewCell
 
 - (void)prepareForReuse
@@ -45,9 +38,6 @@
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated
 {
     [super updateBackgroundState:darkened animated:animated];
-    
-    [self configureViews];
-    
     void(^updateBackgroundState)() = ^() {
         [self.groupedCellBackgroundView setNeedsDisplay];
     };
@@ -63,8 +53,6 @@
 - (void)initialize
 {
     [super initialize];
-    [super setSelectionStyle:UITableViewCellSelectionStyleNone];
-    _selectionStyle = MSGroupedTableViewCellSelectionStyleIndent;
     self.groupedCellBackgroundView = [[MSGroupedCellBackgroundView alloc] init];
     self.backgroundView = self.groupedCellBackgroundView;
     [self configureViews];
@@ -93,15 +81,10 @@
     });
 }
 
-- (void)setSelectionStyle:(MSGroupedTableViewCellSelectionStyle)selectionStyle
+- (void)setSelectionStyle:(MSTableViewCellSelectionStyle)selectionStyle
 {
-    _selectionStyle = selectionStyle;
+    [super setSelectionStyle:selectionStyle];
     [self.groupedCellBackgroundView setNeedsDisplay];
-}
-
-- (MSGroupedTableViewCellSelectionStyle)selectionStyle
-{
-    return _selectionStyle;
 }
 
 @end

@@ -8,12 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MSTableViewCellSelectionStyle) {
+    MSTableViewCellSelectionStyleNone,
+    MSTableViewCellSelectionStyleIndent
+};
+
 @interface MSTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *detailTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, readonly) UILabel *accessoryTextLabel;
+@property (nonatomic, readonly) UIControlState controlState;
+@property (nonatomic, assign) MSTableViewCellSelectionStyle selectionStyle;
 
-@property (nonatomic, strong) UILabel *accessoryTextLabel;
+- (void)setTitleTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+
+- (NSDictionary *)titleTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (NSDictionary *)detailTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (NSDictionary *)accessoryTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated;
 

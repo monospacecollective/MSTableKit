@@ -8,44 +8,33 @@
 
 #import "MSGroupedTableViewHeaderView.h"
 
-@interface MSGroupedTableViewHeaderView ()
-
-- (void)initialize;
-
-@end
-
 @implementation MSGroupedTableViewHeaderView
-
-#pragma mark - UIView
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-}
 
 #pragma mark - MSGroupedTableViewHeaderView
 
 - (void)initialize
 {
-    self.textLabel.textColor = [UIColor blackColor];
+    [super initialize];
+    
+    self.textLabel.font = self.class.defaultTextLabelFont;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
+    self.textLabel.textAlignment = NSTextAlignmentLeft;
+#else
+    self.textLabel.textAlignment = UITextAlignmentLeft;
+#endif
+    self.detailTextLabel.hidden = YES;
 }
+
++ (CGSize)padding
+{
+    CGFloat horizontalPadding = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 54.0 : 20.0);
+    return CGSizeMake(horizontalPadding, 6.0);
+}
+
++ (UIFont *)defaultTextLabelFont
+{
+    return [UIFont boldSystemFontOfSize:17.0];
+}
+
 
 @end

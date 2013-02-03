@@ -16,115 +16,76 @@
 @property (nonatomic, strong) UIView *topHighlightLine;
 @property (nonatomic, strong) UIView *bottomShadowLine;
 
-- (void)initialize;
-- (void)configureViews;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+@property (strong, nonatomic) UIView *backgroundView;
+#endif
 
 @end
 
 @implementation MSPlainTableViewHeaderView
 
-#pragma mark - NSObject
-
-+ (void)initialize
-{
-    UIColor *defaultTextColor = [UIColor blackColor];
-    [[self.class appearanceWhenContainedIn:MSPlainTableView.class, nil] setTextColor:defaultTextColor];
-    
-    UIColor *defaultTopEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    UIColor *defaultTopEtchShadowColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-    UIColor *defaultBottomEtchShadowColor = [UIColor colorWithWhite:0.0 alpha:0.4];
-    
-    [[self.class appearance] setTopEtchHighlightColor:defaultTopEtchHighlightColor];
-    [[self.class appearance] setTopEtchShadowColor:defaultTopEtchShadowColor];
-    [[self.class appearance] setBottomEtchShadowColor:defaultBottomEtchShadowColor];
-    
-    [[UILabel appearanceWhenContainedIn:self.class, nil] setShadowOffset:CGSizeMake(0.0, 1.0)];
-    [[UILabel appearanceWhenContainedIn:self.class, nil] setShadowColor:defaultTopEtchHighlightColor];
-    [[UILabel appearanceWhenContainedIn:self.class, nil] setFont:[UIFont boldSystemFontOfSize:14.0]];
-    
-    CAGradientLayer *defaultBackgroundGradient = [CAGradientLayer layer];
-    UIColor *gradientTopColor = [UIColor colorWithWhite:0.0 alpha:0.1];
-    UIColor *gradientBottomColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-    defaultBackgroundGradient.colors = @[(id)[gradientTopColor CGColor], (id)[gradientBottomColor CGColor]];
-    [[self.class appearance] setBackgroundGradient:defaultBackgroundGradient];
-}
-
-
 #pragma mark - UIView
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.backgroundGradient.frame = self.bounds;
     
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+    self.bottomShadowLine.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - 1.0), CGRectGetWidth(self.bounds), 1.0);
+    self.topShadowLine.frame = CGRectMake(0.0, -1.0, CGRectGetWidth(self.bounds), 1.0);
+    self.topHighlightLine.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), 1.0);
+#else
     self.bottomShadowLine.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - 1.0), CGRectGetWidth(self.bounds), 1.0);
     self.topShadowLine.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), 1.0);
     self.topHighlightLine.frame = CGRectMake(0.0, 1.0, CGRectGetWidth(self.bounds), 1.0);
+#endif
+    
+    CGRect backgroundFrame = (CGRect){{0.0, 0.0}, self.frame.size};
+    self.backgroundGradient.frame = backgroundFrame;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+    self.backgroundView.frame = backgroundFrame;
+#endif
 }
 
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    [self configureViews];
-}
-
-- (void)prepareForReuse
-{
-    [super prepareForReuse];
-    [self configureViews];
-}
-
-#pragma mark - MSTableViewHeaderView
+#pragma mark - MSGroupedTableViewHeaderView
 
 - (void)initialize
 {
+    [super initialize];
+    
+    self.opaque = YES;
     self.layer.masksToBounds = NO;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.topHighlightLine = [[UIView alloc] init];
-    [self.contentView addSubview:self.topHighlightLine];
-    
     self.bottomShadowLine = [[UIView alloc] init];
-    [self.contentView addSubview:self.bottomShadowLine];
-    
     self.topShadowLine = [[UIView alloc] init];
-    [self.contentView addSubview:self.topShadowLine];
-    
     self.backgroundView = [[UIView alloc] init];
     
-    [self configureViews];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
+    [self.contentView addSubview:self.topHighlightLine];
+    [self.contentView addSubview:self.bottomShadowLine];
+    [self.contentView addSubview:self.topShadowLine];
+#else
+    [self insertSubview:self.backgroundView atIndex:0];
+    [self insertSubview:self.topHighlightLine aboveSubview:self.backgroundView];
+    [self insertSubview:self.bottomShadowLine aboveSubview:self.backgroundView];
+    [self insertSubview:self.topShadowLine aboveSubview:self.backgroundView];
+#endif
 }
 
 - (void)configureViews
 {
-    self.textLabel.backgroundColor = [UIColor clearColor];
+    [super configureViews];
     
-    self.backgroundView.backgroundColor = self.backgroundColor;
+    self.textLabel.font = self.class.defaultTextLabelFont;
+    self.detailTextLabel.font = self.class.defaultTextLabelFont;
     
     self.topHighlightLine.backgroundColor = self.topEtchHighlightColor;
     self.topShadowLine.backgroundColor = self.topEtchShadowColor;
     self.bottomShadowLine.backgroundColor = self.bottomEtchShadowColor;
-    
-    self.textLabel.textColor = self.textColor;
+    self.backgroundView.backgroundColor = self.backgroundColor;
     
     if (self.backgroundGradient && ![self.layer.sublayers containsObject:self.backgroundGradient]) {
         if (self.backgroundGradient.superlayer) {
@@ -138,6 +99,16 @@
         }
         [self.layer insertSublayer:self.backgroundGradient above:self.backgroundView.layer];
     }
+}
+
++ (CGSize)padding
+{
+    return CGSizeMake(6.0, 4.0);
+}
+
++ (UIFont *)defaultTextLabelFont
+{
+    return [UIFont boldSystemFontOfSize:15.0];
 }
 
 @end

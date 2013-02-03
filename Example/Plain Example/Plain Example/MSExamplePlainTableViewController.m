@@ -60,8 +60,9 @@ NSString * const MSExampleHeaderReuseIdentifier = @"HeaderReuseIdentifier";
         [self.tableView registerClass:cellClass forCellReuseIdentifier:self.cellClassReuseIdentifiers[[self.cellClasses indexOfObject:cellClass]]];
     }
     
-    // Header Registration
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
     [self.tableView registerClass:MSPlainTableViewHeaderView.class forHeaderFooterViewReuseIdentifier:MSExampleHeaderReuseIdentifier];
+#endif
 }
 
 #pragma mark - UITableViewDataSource
@@ -103,15 +104,19 @@ NSString * const MSExampleHeaderReuseIdentifier = @"HeaderReuseIdentifier";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
     MSPlainTableViewHeaderView *headerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:MSExampleHeaderReuseIdentifier];
+#else
+    MSPlainTableViewHeaderView *headerView = [[MSPlainTableViewHeaderView alloc] init];
+    headerView.textLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+#endif
     return headerView;
 }
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    CGFloat width = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? CGRectGetWidth(self.view.frame) : CGRectGetHeight(self.view.frame);
+    return [MSPlainTableViewHeaderView heightForText:[self tableView:tableView titleForHeaderInSection:section] forWidth:width];
 }
 
 @end

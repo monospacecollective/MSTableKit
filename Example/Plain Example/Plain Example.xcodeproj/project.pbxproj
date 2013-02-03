@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AAA6FEB16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA6FEA16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m */; };
 		3AAC377716A741900022B04D /* KGNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC377616A741900022B04D /* KGNoise.m */; };
 		3AAC378316A741EE0022B04D /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC377D16A741EE0022B04D /* UIColor+Expanded.m */; };
 		3AB7D36C168A7E100075DB45 /* MSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7D36B168A7E100075DB45 /* MSTableViewCell.m */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AAA6FE916BC36AA0040B6E7 /* MSTableViewHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableViewHeaderFooterView.h; sourceTree = "<group>"; };
+		3AAA6FEA16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableViewHeaderFooterView.m; sourceTree = "<group>"; };
 		3AAC377516A741900022B04D /* KGNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGNoise.h; sourceTree = "<group>"; };
 		3AAC377616A741900022B04D /* KGNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGNoise.m; sourceTree = "<group>"; };
 		3AAC377C16A741EE0022B04D /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
@@ -211,12 +214,14 @@
 				3ABBA543168A711200B83408 /* MSPlainTableView.m */,
 				3ABBA544168A711200B83408 /* MSPlainTableViewCell.h */,
 				3ABBA545168A711200B83408 /* MSPlainTableViewCell.m */,
-				3ABBA546168A711200B83408 /* MSPlainTableViewHeaderView.h */,
-				3ABBA547168A711200B83408 /* MSPlainTableViewHeaderView.m */,
 				3ABBA548168A711200B83408 /* MSRightDetailPlainTableViewCell.h */,
 				3ABBA549168A711200B83408 /* MSRightDetailPlainTableViewCell.m */,
 				3ABBA54A168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.h */,
 				3ABBA54B168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m */,
+				3AAA6FE916BC36AA0040B6E7 /* MSTableViewHeaderFooterView.h */,
+				3AAA6FEA16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m */,
+				3ABBA546168A711200B83408 /* MSPlainTableViewHeaderView.h */,
+				3ABBA547168A711200B83408 /* MSPlainTableViewHeaderView.m */,
 			);
 			name = MSTableKit;
 			path = ../../MSTableKit;
@@ -309,6 +314,7 @@
 				3AB7D36C168A7E100075DB45 /* MSTableViewCell.m in Sources */,
 				3AAC377716A741900022B04D /* KGNoise.m in Sources */,
 				3AAC378316A741EE0022B04D /* UIColor+Expanded.m in Sources */,
+				3AAA6FEB16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

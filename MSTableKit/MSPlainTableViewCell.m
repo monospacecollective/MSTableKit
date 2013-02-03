@@ -36,9 +36,6 @@
     [[self.class appearance] setEtchHighlightColor:defaultEtchHighlightColor];
     [[self.class appearance] setEtchShadowColor:defaultEtchShadowColor];
     [[self.class appearance] setSelectionColor:defaultSelectionColor];
-    
-    [[UILabel appearanceWhenContainedIn:self.class, nil] setShadowOffset:CGSizeMake(0.0, 1.0)];
-    [[UILabel appearanceWhenContainedIn:self.class, nil] setShadowColor:defaultEtchHighlightColor];
 }
 
 #pragma mark - UIView
@@ -107,8 +104,6 @@
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated
 {
     [super updateBackgroundState:darkened animated:animated];
-    
-    [self configureViews];
     
     void(^updateBackgroundState)() = ^() {
         self.selectionView.alpha = (darkened ? 1.0 : 0.0);

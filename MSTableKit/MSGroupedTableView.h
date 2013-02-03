@@ -16,6 +16,7 @@
 
 // Headers
 #import "MSGroupedTableViewHeaderView.h"
+#import "MSGroupedTableViewFooterView.h"
 
 @interface MSGroupedTableView : UITableView
 

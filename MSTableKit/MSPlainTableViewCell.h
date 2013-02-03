@@ -12,9 +12,9 @@
 
 @interface MSPlainTableViewCell : MSTableViewCell <UIAppearanceContainer>
 
-@property (strong, nonatomic) UIColor *selectionColor UI_APPEARANCE_SELECTOR;
-@property (strong, nonatomic) UIColor *etchHighlightColor UI_APPEARANCE_SELECTOR;
-@property (strong, nonatomic) UIColor *etchShadowColor UI_APPEARANCE_SELECTOR;
-@property (strong, nonatomic) CAGradientLayer *backgroundGradient UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *selectionColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *etchHighlightColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *etchShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) CAGradientLayer *backgroundGradient UI_APPEARANCE_SELECTOR;
 
 @end

@@ -40,15 +40,15 @@
     [self.groupedCellBackgroundView setFillColor:[buttonBackgroundColor colorByAdding:-0.1] forState:UIControlStateHighlighted];
     [self.groupedCellBackgroundView setBorderColor:[buttonBackgroundColor colorByAdding:-0.2] forState:UIControlStateNormal];
     [self.groupedCellBackgroundView setBorderColor:[buttonBackgroundColor colorByAdding:-0.3] forState:UIControlStateHighlighted];
-    if (buttonBackgroundColor.brightness < 0.5) {
-        self.titleTextColor = [UIColor whiteColor];
-        self.textLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-        self.textLabel.shadowOffset = CGSizeMake(0.0, -1.0);
-    } else {
-        self.titleTextColor = [UIColor blackColor];
-        self.textLabel.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
-        self.textLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    }
+//    if (buttonBackgroundColor.brightness < 0.5) {
+//        self.titleTextColor = [UIColor whiteColor];
+//        self.textLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+//        self.textLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+//    } else {
+//        self.titleTextColor = [UIColor blackColor];
+//        self.textLabel.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
+//        self.textLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+//    }
     _buttonbackgroundColor = buttonBackgroundColor;
 }
 

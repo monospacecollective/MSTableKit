@@ -10,6 +10,7 @@
 #import "MSExamplePlainTableViewController.h"
 #import "MSPlainTableView.h"
 #import "KGNoise.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MSAppDelegate
 
@@ -24,43 +25,61 @@
     
     UIColor *cellEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:(0.1 + (color * 0.45))];
     UIColor *cellEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.5 * color)) alpha:1.0];
-    UIColor *textColor = (color > 0.5) ? [UIColor blackColor] : [UIColor whiteColor];
     
     [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setEtchHighlightColor:cellEtchHighlightColor];
     [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setEtchShadowColor:cellEtchShadowColor];
-    [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setTitleTextColor:textColor];
-    [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setDetailTextColor:textColor];
     
-    UIColor *headerTopEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:(0.1 + (color * 0.3))];
+    UIColor *headerTopEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:(0.1 + (color * 0.1))];
     UIColor *headerTopEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.5 * color)) alpha:1.0];
     UIColor *headerBottomEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.3 * color)) alpha:1.0];
+    UIColor *headerBackgorundColor = [[UIColor colorWithWhite:0.0 alpha:1.0] colorWithNoiseWithOpacity:0.05 andBlendMode:kCGBlendModeScreen];
     
-    [[MSPlainTableViewHeaderView appearanceWhenContainedIn:MSPlainTableView.class, nil] setTopEtchHighlightColor:headerTopEtchHighlightColor];
-    [[MSPlainTableViewHeaderView appearanceWhenContainedIn:MSPlainTableView.class, nil] setTopEtchShadowColor:headerTopEtchShadowColor];
-    [[MSPlainTableViewHeaderView appearanceWhenContainedIn:MSPlainTableView.class, nil] setBottomEtchShadowColor:headerBottomEtchShadowColor];
-    [[MSPlainTableViewHeaderView appearanceWhenContainedIn:MSPlainTableView.class, nil] setTextColor:textColor];
-    [[MSPlainTableViewHeaderView appearanceWhenContainedIn:MSPlainTableView.class, nil] setBackgroundColor:[UIColor blackColor]];
+    [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:headerTopEtchHighlightColor];
+    [MSPlainTableViewHeaderView.appearance setTopEtchShadowColor:headerTopEtchShadowColor];
+    [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:headerBottomEtchShadowColor];
+    [MSPlainTableViewHeaderView.appearance setBackgroundColor:headerBackgorundColor];
     
-    CGSize textShadowOffset;
-    UIColor *cellTextShadowColor;
+    CAGradientLayer *defaultBackgroundGradient = [CAGradientLayer layer];
+    UIColor *gradientTopColor = [UIColor colorWithWhite:1.0 alpha:0.05];
+    UIColor *gradientBottomColor = [UIColor colorWithWhite:1.0 alpha:0.1];
+    defaultBackgroundGradient.colors = @[(id)[gradientTopColor CGColor], (id)[gradientBottomColor CGColor]];
+    [MSPlainTableViewHeaderView.appearance setBackgroundGradient:defaultBackgroundGradient];
+    
+    UIColor *textColor = (color > 0.5) ? [UIColor blackColor] : [UIColor whiteColor];
+    NSValue *textShadowOffset;
+    UIColor *textShadowColor;
     UIColor *headerTextShadowColor;
     if (color > 0.5) {
-        textShadowOffset = CGSizeMake(0.0, 1.0);
-        cellTextShadowColor = cellEtchHighlightColor;
+        textShadowOffset = [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)];
+        textShadowColor = cellEtchHighlightColor;
         headerTextShadowColor = headerTopEtchHighlightColor;
     } else {
-        textShadowOffset = CGSizeMake(0.0, -1.0);
-        cellTextShadowColor = cellEtchShadowColor;
+        textShadowOffset = [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)];
+        textShadowColor = cellEtchShadowColor;
         headerTextShadowColor = cellEtchShadowColor;
     }
+
+    NSDictionary *textAttributes = @{
+        UITextAttributeTextColor : textColor,
+        UITextAttributeTextShadowColor : textShadowColor,
+        UITextAttributeTextShadowOffset : textShadowOffset,
+    };
     
-    // MSPlainTableViewCell
-    [[UILabel appearanceWhenContainedIn:MSPlainTableViewCell.class, UIViewController.class, nil] setShadowOffset:textShadowOffset];
-    [[UILabel appearanceWhenContainedIn:MSPlainTableViewCell.class, UIViewController.class, nil] setShadowColor:cellTextShadowColor];
+    NSDictionary *highlightedTextAttributes = @{
+        UITextAttributeTextColor : [UIColor lightGrayColor],
+        UITextAttributeTextShadowColor : textShadowColor,
+        UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)],
+    };
     
-    // MSPlainTableViewHeaderView
-    [[UILabel appearanceWhenContainedIn:MSPlainTableViewHeaderView.class, UIViewController.class, nil] setShadowOffset:textShadowOffset];
-    [[UILabel appearanceWhenContainedIn:MSPlainTableViewHeaderView.class, UIViewController.class, nil] setShadowColor:headerTextShadowColor];
+    [MSTableViewCell.appearance setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
+    [MSTableViewCell.appearance setDetailTextAttributes:textAttributes forState:UIControlStateNormal];
+    [MSTableViewCell.appearance setAccessoryTextAttributes:textAttributes forState:UIControlStateNormal];
+    
+    [MSTableViewCell.appearance setTitleTextAttributes:highlightedTextAttributes forState:UIControlStateHighlighted];
+    [MSTableViewCell.appearance setDetailTextAttributes:highlightedTextAttributes forState:UIControlStateHighlighted];
+    [MSTableViewCell.appearance setAccessoryTextAttributes:highlightedTextAttributes forState:UIControlStateHighlighted];
+    
+    [MSPlainTableViewHeaderView.appearance setTitleTextAttributes:textAttributes];
     
     self.tableViewController = [[MSExamplePlainTableViewController alloc] initWithNibName:nil bundle:nil];
     

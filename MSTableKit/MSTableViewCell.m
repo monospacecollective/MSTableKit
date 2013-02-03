@@ -8,9 +8,25 @@
 
 #import "MSTableViewCell.h"
 
-//#define LAYOUT_DEBUG
+//#define LAYOUT_DEBUG\
+
+@interface MSTableViewCell () {
+    NSMutableDictionary *_titleTextAttributesForState;
+    NSMutableDictionary *_detailTextAttributesForState;
+    NSMutableDictionary *_accessoryTextAttributesForState;
+    MSTableViewCellSelectionStyle _selectionStyle;
+}
+
+- (void)applyTextAttributes:(NSDictionary *)attributes toLabel:(UILabel *)label;
+
+- (void)setValue:(id)value inStateDictionary:(NSMutableDictionary *)stateDictionary forState:(UIControlState)state;
+- (id)valueInStateDictionary:(NSDictionary *)stateDictionary forControlState:(UIControlState)state;
+
+@end
 
 @implementation MSTableViewCell
+
+@dynamic controlState;
 
 #pragma mark - UIView
 
@@ -94,37 +110,151 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
-    [self updateBackgroundState:highlighted animated:animated];
+    [self updateBackgroundState:((self.selected || self.highlighted) && self.selectionStyle != MSTableViewCellSelectionStyleNone) animated:animated];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    [self updateBackgroundState:selected animated:animated];
+    [self updateBackgroundState:((self.selected || self.highlighted) && self.selectionStyle != MSTableViewCellSelectionStyleNone) animated:animated];
 }
 
 #pragma mark - MSTableViewCell
 
 - (void)initialize
 {
+    // Overridding default UITableViewCell stuff
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.detailTextLabel.backgroundColor = [UIColor clearColor];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.accessoryTextLabel = [[UILabel alloc] init];
+    
+    [super setSelectionStyle:UITableViewCellSelectionStyleNone];
+    _selectionStyle = MSTableViewCellSelectionStyleIndent;
+    
+    _titleTextAttributesForState = [NSMutableDictionary new];
+    _detailTextAttributesForState = [NSMutableDictionary new];
+    _accessoryTextAttributesForState = [NSMutableDictionary new];
+    
+    _accessoryTextLabel = [[UILabel alloc] init];
     self.accessoryTextLabel.backgroundColor = [UIColor clearColor];
     [self configureViews];
 }
 
 - (void)configureViews
 {
-    self.textLabel.textColor = self.titleTextColor;
-    self.detailTextLabel.textColor = self.detailTextColor;
-    self.accessoryTextLabel.textColor = self.titleTextColor;
+    [self applyTextAttributes:[self titleTextAttributesForState:self.controlState] toLabel:self.textLabel];
+    [self applyTextAttributes:[self detailTextAttributesForState:self.controlState] toLabel:self.detailTextLabel];
+    [self applyTextAttributes:[self accessoryTextAttributesForState:self.controlState] toLabel:self.accessoryTextLabel];
 }
 
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated
 {
     [self configureViews];
+}
+
+- (void)applyTextAttributes:(NSDictionary *)attributes toLabel:(UILabel *)label
+{
+	label.font = (attributes[UITextAttributeFont] ? attributes[UITextAttributeFont] : label.font);
+	label.textColor = (attributes[UITextAttributeTextColor] ? attributes[UITextAttributeTextColor] : label.textColor);
+	label.shadowColor = (attributes[UITextAttributeTextShadowColor] ? attributes[UITextAttributeTextShadowColor] : label.shadowColor);
+	label.shadowOffset = (attributes[UITextAttributeTextShadowOffset] ? [attributes[UITextAttributeTextShadowOffset] CGSizeValue] : label.shadowOffset);
+}
+
+#pragma mark Selection Style Accessors
+
+- (void)setSelectionStyle:(MSTableViewCellSelectionStyle)selectionStyle
+{
+    _selectionStyle = selectionStyle;
+}
+
+- (MSTableViewCellSelectionStyle)selectionStyle
+{
+    return _selectionStyle;
+}
+
+#pragma mark Control State Accessors
+
+- (UIControlState)controlState
+{
+    BOOL selectable = (self.selectionStyle != MSTableViewCellSelectionStyleNone);
+    
+    if (selectable && self.selected) {
+        return UIControlStateSelected;
+    } else if (selectable && self.highlighted) {
+        return UIControlStateHighlighted;
+    } else {
+        return UIControlStateNormal;
+    }
+}
+
+#pragma mark - UIControlState Accessors
+
+#pragma mark Setters
+
+- (void)setValue:(id)value inStateDictionary:(NSMutableDictionary *)stateDictionary forState:(UIControlState)state
+{
+    static NSArray *statesNumbers;
+    if (!statesNumbers) {
+        statesNumbers = @[@(UIControlStateNormal), @(UIControlStateHighlighted), @(UIControlStateSelected)];
+    }
+    for (NSNumber *stateNumber in statesNumbers) {
+        NSUInteger stateInteger = [stateNumber unsignedIntegerValue];
+        BOOL statePresentInMask = (stateInteger == UIControlStateNormal) ? (state == UIControlStateNormal) : ((state & stateInteger) == stateInteger);
+        if (statePresentInMask) {
+            stateDictionary[stateNumber] = value;
+        }
+    }
+}
+
+- (void)setTitleTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
+{
+    [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
+    [self setNeedsDisplay];
+}
+
+- (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
+{
+    [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
+    [self setNeedsDisplay];
+}
+
+- (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
+{
+    [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
+    [self setNeedsDisplay];
+}
+
+#pragma mark Getters
+
+- (id)valueInStateDictionary:(NSDictionary *)stateDictionary forControlState:(UIControlState)state
+{
+    NSAssert((state == UIControlStateNormal) || (state == UIControlStateSelected) || (state == UIControlStateHighlighted) || (state == UIControlStateDisabled), @"Queried control states must not be bit masks");
+    id stateDictionaryValue = stateDictionary[@(state)];
+    if (stateDictionaryValue) {
+        return stateDictionaryValue;
+    }
+    // If we're querying the selected state, default to highlighted if it exists
+    else if ((state == UIControlStateSelected) && stateDictionary[@(UIControlStateHighlighted)]) {
+        return stateDictionary[@(UIControlStateHighlighted)];
+    }
+    // If we're querying any state that doesn't exist in the dict, default to normal
+    else {
+        return stateDictionary[@(UIControlStateNormal)];
+    }
+}
+
+- (NSDictionary *)titleTextAttributesForState:(UIControlState)state
+{
+    return [self valueInStateDictionary:_titleTextAttributesForState forControlState:state];
+}
+
+- (NSDictionary *)detailTextAttributesForState:(UIControlState)state
+{
+    return [self valueInStateDictionary:_detailTextAttributesForState forControlState:state];
+}
+
+- (NSDictionary *)accessoryTextAttributesForState:(UIControlState)state
+{
+    return [self valueInStateDictionary:_accessoryTextAttributesForState forControlState:state];
 }
 
 @end

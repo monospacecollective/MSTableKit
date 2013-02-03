@@ -25,7 +25,7 @@
     MSGroupedCellBackgroundViewType _type;
 }
 
-- (CGPathRef)cellPathWithInset:(CGSize)insets offset:(CGSize)offset cornerRadius:(CGFloat)cornerRadius;
+- (CGPathRef)cellPathForRect:(CGRect)rect inset:(CGSize)insets offset:(CGSize)offset cornerRadius:(CGFloat)cornerRadius;
 
 @end
 
@@ -38,6 +38,8 @@
     if (self = [super initWithFrame:frame]) {
         
         self.opaque = NO;
+        // Requires redraw on rotate
+        self.contentMode = UIViewContentModeRedraw;
         
         _cornerRadius = 4.0;
         _backgroundColorGradientEnabled = NO;
@@ -65,6 +67,7 @@
         
         _shadowColorDictionary[@(UIControlStateNormal)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         _shadowColorDictionary[@(UIControlStateHighlighted)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+        _shadowColorDictionary[@(UIControlStateNormal)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         
         _innerShadowColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithWhite:0.0 alpha:0.1];
         _innerShadowBlurDictionary[@(UIControlStateNormal)] = @(0.0);
@@ -81,12 +84,9 @@
 {
     NSParameterAssert([self.superview isKindOfClass:MSGroupedTableViewCell.class]);
     MSGroupedTableViewCell *containingCell = (MSGroupedTableViewCell *)self.superview;
-    
-    BOOL drawHighlight = (containingCell.selectionStyle != MSGroupedTableViewCellSelectionStyleNone) && (containingCell.highlighted || containingCell.selected);
-    UIControlState controlState = (drawHighlight ? UIControlStateHighlighted : UIControlStateNormal);
+    UIControlState controlState = containingCell.controlState;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     // Shadow
 #warning use provided shadow offset and blur radius
     if (_type == MSGroupedCellBackgroundViewTypeBottom ||
@@ -225,95 +225,137 @@
 
 #pragma mark - UIControlState Accessors
 
+#pragma mark Setters
+
+- (void)setValue:(id)value inStateDictionary:(NSMutableDictionary *)stateDictionary forState:(UIControlState)state
+{
+    static NSArray *statesNumbers;
+    if (!statesNumbers) {
+        statesNumbers = @[@(UIControlStateNormal), @(UIControlStateHighlighted), @(UIControlStateSelected)];
+    }
+    for (NSNumber *stateNumber in statesNumbers) {
+        NSUInteger stateInteger = [stateNumber unsignedIntegerValue];
+        BOOL statePresentInMask = (stateInteger == UIControlStateNormal) ? (state == UIControlStateNormal) : ((state & stateInteger) == stateInteger);
+        if (statePresentInMask) {
+            stateDictionary[stateNumber] = value;
+        }
+    }
+}
+
 - (void)setBorderColor:(UIColor *)borderColor forState:(UIControlState)state
 {
-    _borderColorDictionary[@(state)] = borderColor;
+    [self setValue:borderColor inStateDictionary:_borderColorDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setFillColor:(UIColor *)fillColor forState:(UIControlState)state
 {
-    _fillColorDictionary[@(state)] = fillColor;
+    [self setValue:fillColor inStateDictionary:_fillColorDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setShadowColor:(UIColor *)shadowColor forState:(UIControlState)state
 {
-    _shadowColorDictionary[@(state)] = shadowColor;
+    [self setValue:shadowColor inStateDictionary:_shadowColorDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setShadowOffset:(CGSize)shadowOffset forState:(UIControlState)state
 {
-    _shadowOffsetDictionary[@(state)] = [NSValue valueWithCGSize:shadowOffset];
+    [self setValue:[NSValue valueWithCGSize:shadowOffset] inStateDictionary:_shadowOffsetDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setShadowBlur:(CGFloat)shadowBlur forState:(UIControlState)state
 {
-    _shadowBlurDictionary[@(state)] = @(shadowBlur);
+    [self setValue:@(shadowBlur) inStateDictionary:_shadowBlurDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setInnerShadowColor:(UIColor *)shadowColor forState:(UIControlState)state
 {
-    _innerShadowColorDictionary[@(state)] = shadowColor;
+    [self setValue:shadowColor inStateDictionary:_innerShadowColorDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setInnerShadowOffset:(CGSize)innerShadowOffset forState:(UIControlState)state
 {
-    _innerShadowOffsetDictionary[@(state)] = [NSValue valueWithCGSize:innerShadowOffset];;
+    [self setValue:[NSValue valueWithCGSize:innerShadowOffset] inStateDictionary:_innerShadowOffsetDictionary forState:state];
     [self setNeedsDisplay];
 }
 
 - (void)setInnerShadowBlur:(CGFloat)shadowBlur forState:(UIControlState)state
 {
-    _innerShadowBlurDictionary[@(state)] = @(shadowBlur);
+    [self setValue:@(shadowBlur) inStateDictionary:_innerShadowBlurDictionary forState:state];
     [self setNeedsDisplay];
+}
+
+#pragma mark Getters
+
+- (id)valueInStateDictionary:(NSDictionary *)stateDictionary forControlState:(UIControlState)state
+{
+    NSAssert((state == UIControlStateNormal) || (state == UIControlStateSelected) || (state == UIControlStateHighlighted) || (state == UIControlStateDisabled), @"Queried control states must not be bit masks");
+    id stateDictionaryValue = stateDictionary[@(state)];
+    if (stateDictionaryValue) {
+        return stateDictionaryValue;
+    }
+    // If we're querying the selected state, default to highlighted if it exists
+    else if ((state == UIControlStateSelected) && stateDictionary[@(UIControlStateHighlighted)]) {
+        return stateDictionary[@(UIControlStateHighlighted)];
+    }
+    // If we're querying any state that doesn't exist in the dict, default to normal
+    else {
+        return stateDictionary[@(UIControlStateNormal)];
+    }
 }
 
 - (UIColor *)borderColorForState:(UIControlState)state
 {
-    return _borderColorDictionary[@(state)];
+    return [self valueInStateDictionary:_borderColorDictionary forControlState:state];
 }
 
 - (UIColor *)fillColorForState:(UIControlState)state
 {
-    return _fillColorDictionary[@(state)];
+    return [self valueInStateDictionary:_fillColorDictionary forControlState:state];
 }
 
 - (UIColor *)shadowColorForState:(UIControlState)state
 {
-    return _shadowColorDictionary[@(state)];
+    return [self valueInStateDictionary:_shadowColorDictionary forControlState:state];
 }
 
 - (CGSize)shadowOffsetForState:(UIControlState)state
 {
-    return [_shadowOffsetDictionary[@(state)] CGSizeValue];
+    return [[self valueInStateDictionary:_shadowOffsetDictionary forControlState:state] CGSizeValue];
 }
 
 - (CGFloat)shadowBlurForState:(UIControlState)state
 {
-    return [_shadowBlurDictionary[@(state)] floatValue];
+    return [[self valueInStateDictionary:_shadowBlurDictionary forControlState:state] floatValue];
 }
 
 - (UIColor *)innerShadowColorForState:(UIControlState)state
 {
-    return _innerShadowColorDictionary[@(state)];
+    return [self valueInStateDictionary:_innerShadowColorDictionary forControlState:state];
 }
 
 - (CGSize)innerShadowOffsetForState:(UIControlState)state
 {
-    return [_innerShadowOffsetDictionary[@(state)] CGSizeValue];
+    return [[self valueInStateDictionary:_innerShadowOffsetDictionary forControlState:state] CGSizeValue];
 }
 
 - (CGFloat)innerShadowBlurForState:(UIControlState)state
 {
-    return [_innerShadowBlurDictionary[@(state)] floatValue];
+    return [[self valueInStateDictionary:_innerShadowBlurDictionary forControlState:state] floatValue];
 }
 
 #pragma mark Non-UIControlState Accessors
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    [self setNeedsDisplay];
+}
 
 - (CGFloat)cornerRadius
 {

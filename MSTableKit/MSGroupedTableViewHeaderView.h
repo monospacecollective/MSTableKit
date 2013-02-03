@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MSTableViewHeaderFooterView.h"
 
-@interface MSGroupedTableViewHeaderView : UITableViewHeaderFooterView
+@interface MSGroupedTableViewHeaderView : MSTableViewHeaderFooterView
 
 @end

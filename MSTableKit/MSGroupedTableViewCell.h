@@ -9,14 +9,8 @@
 #import "MSTableViewCell.h"
 #import "MSGroupedCellBackgroundView.h"
 
-typedef NS_ENUM(NSInteger, MSGroupedTableViewCellSelectionStyle) {
-    MSGroupedTableViewCellSelectionStyleNone,
-    MSGroupedTableViewCellSelectionStyleIndent
-};
-
 @interface MSGroupedTableViewCell : MSTableViewCell
 
 @property (nonatomic, strong) MSGroupedCellBackgroundView *groupedCellBackgroundView;
-@property (nonatomic, assign) MSGroupedTableViewCellSelectionStyle selectionStyle;
 
 @end
