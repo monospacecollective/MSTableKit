@@ -55,6 +55,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self initialize];
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.textLabel.shadowColor = [UIColor blackColor];
+        self.textLabel.shadowOffset = CGSizeMake(0, 1);
     }
     return self;
 }
