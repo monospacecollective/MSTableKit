@@ -62,7 +62,7 @@
         self.detailTextLabel.shadowColor = [UIColor blackColor];
         self.detailTextLabel.shadowOffset = CGSizeMake(0, 1);
         self.accessoryTextLabel.textColor = [UIColor whiteColor];
-        self.accessoryTextLabel.shadowColor = [UIColor blackColor]
+        self.accessoryTextLabel.shadowColor = [UIColor blackColor];
         self.accessoryTextLabel.shadowOffset = CGSizeMake(0, 1);
     }
     return self;
