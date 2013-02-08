@@ -55,15 +55,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self initialize];
-        self.textLabel.textColor = [UIColor whiteColor];
-        self.textLabel.shadowColor = [UIColor blackColor];
-        self.textLabel.shadowOffset = CGSizeMake(0, 1);
-        self.detailTextLabel.textColor = [UIColor whiteColor];
-        self.detailTextLabel.shadowColor = [UIColor blackColor];
-        self.detailTextLabel.shadowOffset = CGSizeMake(0, 1);
-        self.accessoryTextLabel.textColor = [UIColor whiteColor];
-        self.accessoryTextLabel.shadowColor = [UIColor blackColor];
-        self.accessoryTextLabel.shadowOffset = CGSizeMake(0, 1);
     }
     return self;
 }
@@ -218,18 +209,21 @@
 {
     [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
     [self setNeedsDisplay];
+    [self applyTextAttributes:textAttributes toLabel:self.textLabel];
 }
 
 - (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
     [self setNeedsDisplay];
+    [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
 }
 
 - (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
     [self setNeedsDisplay];
+    [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
 }
 
 #pragma mark Getters
