@@ -10,7 +10,7 @@
 
 //#define LAYOUT_DEBUG
 
-#define ControlStatePresentInMask(state,mask) (state == UIControlStateNormal) ? (mask == UIControlStateNormal) : ((mask & state) == state)
+#define ControlStatePresentInMask(state,mask) ({ __typeof__(state) __s = (state); __typeof__(mask) __m = (mask); (__s == UIControlStateNormal) ? (__m == UIControlStateNormal) : ((__m & __s) == __s); })
 
 @interface MSTableViewCell () {
     NSMutableDictionary *_titleTextAttributesForState;
