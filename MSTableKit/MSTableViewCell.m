@@ -8,7 +8,9 @@
 
 #import "MSTableViewCell.h"
 
-//#define LAYOUT_DEBUG\
+//#define LAYOUT_DEBUG
+
+#define ControlStatePresentInMask(state,mask) (state == UIControlStateNormal) ? (mask == UIControlStateNormal) : ((mask & state) == state)
 
 @interface MSTableViewCell () {
     NSMutableDictionary *_titleTextAttributesForState;
@@ -209,7 +211,7 @@
 {
     [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    if (self.controlState | state) {
+    if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.textLabel];
     }
 }
@@ -218,7 +220,7 @@
 {
     [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    if (self.controlState | state) {
+    if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
     }
 }
@@ -227,7 +229,7 @@
 {
     [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    if (self.controlState | state) {
+    if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
     }
 }
