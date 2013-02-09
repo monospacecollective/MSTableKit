@@ -211,27 +211,33 @@
 {
     [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
     [self setNeedsDisplay];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
     if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.textLabel];
     }
+#endif
 }
 
 - (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
     [self setNeedsDisplay];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
     if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
     }
+#endif
 }
 
 - (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
     [self setNeedsDisplay];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
     if (ControlStatePresentInMask(self.controlState, state)) {
         [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
     }
+#endif
 }
 
 #pragma mark Getters
