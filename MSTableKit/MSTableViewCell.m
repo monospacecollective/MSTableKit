@@ -209,21 +209,27 @@
 {
     [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    [self applyTextAttributes:textAttributes toLabel:self.textLabel];
+    if (self.controlState | state) {
+        [self applyTextAttributes:textAttributes toLabel:self.textLabel];
+    }
 }
 
 - (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
+    if (self.controlState | state) {
+        [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
+    }
 }
 
 - (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
     [self setNeedsDisplay];
-    [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
+    if (self.controlState | state) {
+        [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
+    }
 }
 
 #pragma mark Getters
