@@ -8,7 +8,9 @@
 
 #import "MSTableViewCell.h"
 
-//#define LAYOUT_DEBUG\
+//#define LAYOUT_DEBUG
+
+#define ControlStatePresentInMask(state,mask) ({ __typeof__(state) __s = (state); __typeof__(mask) __m = (mask); (__s == UIControlStateNormal) ? (__m == UIControlStateNormal) : ((__m & __s) == __s); })
 
 @interface MSTableViewCell () {
     NSMutableDictionary *_titleTextAttributesForState;
@@ -208,18 +210,33 @@
 - (void)setTitleTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_titleTextAttributesForState forState:state];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+    if (ControlStatePresentInMask(self.controlState, state)) {
+        [self applyTextAttributes:textAttributes toLabel:self.textLabel];
+    }
+#endif
     [self setNeedsDisplay];
 }
 
 - (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_detailTextAttributesForState forState:state];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+    if (ControlStatePresentInMask(self.controlState, state)) {
+        [self applyTextAttributes:textAttributes toLabel:self.detailTextLabel];
+    }
+#endif
     [self setNeedsDisplay];
 }
 
 - (void)setAccessoryTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state
 {
     [self setValue:textAttributes inStateDictionary:_accessoryTextAttributesForState forState:state];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+    if (ControlStatePresentInMask(self.controlState, state)) {
+        [self applyTextAttributes:textAttributes toLabel:self.accessoryTextLabel];
+    }
+#endif
     [self setNeedsDisplay];
 }
 
