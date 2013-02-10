@@ -150,7 +150,9 @@
 				3ABBA53C168A70E700B83408 /* Vendor */,
 				3ABBA51A168A707D00B83408 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		3ABBA51A168A707D00B83408 /* Products */ = {
 			isa = PBXGroup;

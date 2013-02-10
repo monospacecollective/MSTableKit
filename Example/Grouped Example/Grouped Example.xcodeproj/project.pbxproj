@@ -205,7 +205,9 @@
 				3A5AC62D16A2461F006F5A3F /* Vendor */,
 				3ABBBC9E168BF38000CBB5C1 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		3ABBBC9E168BF38000CBB5C1 /* Products */ = {
 			isa = PBXGroup;
