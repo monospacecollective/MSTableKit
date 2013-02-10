@@ -18,6 +18,7 @@
     if (self) {
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.backgroundView = nil;
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }

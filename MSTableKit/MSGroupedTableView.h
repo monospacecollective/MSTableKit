@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSTableView.h"
 
 // Cells
 #import "MSGroupedTableViewCell.h"
@@ -18,7 +19,7 @@
 #import "MSGroupedTableViewHeaderView.h"
 #import "MSGroupedTableViewFooterView.h"
 
-@interface MSGroupedTableView : UITableView
+@interface MSGroupedTableView : MSTableView
 
 @property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
