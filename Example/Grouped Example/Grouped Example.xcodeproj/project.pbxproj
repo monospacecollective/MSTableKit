@@ -43,6 +43,8 @@
 		3ABBBCBE168BF3A700CBB5C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBBCBD168BF3A700CBB5C1 /* QuartzCore.framework */; };
 		3ABBBCC1168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBBCC0168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m */; };
 		3AFE5CC516A9EA98002D34ED /* MSTableKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */; };
+		E7D624C016C6EC7500BF49A2 /* MSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = E7D624BE16C6EC7500BF49A2 /* MSTableView.h */; };
+		E7D624C116C6EC7500BF49A2 /* MSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D624BF16C6EC7500BF49A2 /* MSTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +99,8 @@
 		3ABBBCBF168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSExampleGroupedTableViewController.h; sourceTree = "<group>"; };
 		3ABBBCC0168BF3F400CBB5C1 /* MSExampleGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSExampleGroupedTableViewController.m; sourceTree = "<group>"; };
 		3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSTableKit.h; sourceTree = "<group>"; };
+		E7D624BE16C6EC7500BF49A2 /* MSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableView.h; sourceTree = "<group>"; };
+		E7D624BF16C6EC7500BF49A2 /* MSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 		3A8BC61716A367A300800998 /* MSTableKit */ = {
 			isa = PBXGroup;
 			children = (
+				E7D624BE16C6EC7500BF49A2 /* MSTableView.h */,
+				E7D624BF16C6EC7500BF49A2 /* MSTableView.m */,
 				3AFE5CC316A9E9E9002D34ED /* MSTableKit.h */,
 				3AAC379916A74A3B0022B04D /* MSTableViewCell.h */,
 				3AAC379A16A74A3B0022B04D /* MSTableViewCell.m */,
@@ -257,6 +263,7 @@
 				3AFE5CC516A9EA98002D34ED /* MSTableKit.h in Headers */,
 				3AAA6FE716BC32910040B6E7 /* MSTableViewHeaderFooterView.h in Headers */,
 				3AAA6FEE16BC3DB20040B6E7 /* MSGroupedTableViewFooterView.h in Headers */,
+				E7D624C016C6EC7500BF49A2 /* MSTableView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +359,7 @@
 				3AAC379B16A74A3B0022B04D /* MSTableViewCell.m in Sources */,
 				3AAA6FE816BC32910040B6E7 /* MSTableViewHeaderFooterView.m in Sources */,
 				3AAA6FEF16BC3DB20040B6E7 /* MSGroupedTableViewFooterView.m in Sources */,
+				E7D624C116C6EC7500BF49A2 /* MSTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

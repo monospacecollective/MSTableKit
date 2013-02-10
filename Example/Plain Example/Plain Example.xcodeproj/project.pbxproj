@@ -37,6 +37,7 @@
 		3ABBA551168A711200B83408 /* MSRightDetailPlainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA549168A711200B83408 /* MSRightDetailPlainTableViewCell.m */; };
 		3ABBA552168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA54B168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m */; };
 		3ABBA554168A713400B83408 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABBA553168A713400B83408 /* QuartzCore.framework */; };
+		E7D624BD16C6EADC00BF49A2 /* MSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D624BC16C6EADC00BF49A2 /* MSTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,7 +73,7 @@
 		3ABBA530168A707D00B83408 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		3ABBA532168A707D00B83408 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3ABBA539168A709C00B83408 /* MSExamplePlainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSExamplePlainTableViewController.h; sourceTree = "<group>"; };
-		3ABBA53A168A709C00B83408 /* MSExamplePlainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSExamplePlainTableViewController.m; sourceTree = "<group>"; };
+		3ABBA53A168A709C00B83408 /* MSExamplePlainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = MSExamplePlainTableViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		3ABBA542168A711200B83408 /* MSPlainTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainTableView.h; sourceTree = "<group>"; };
 		3ABBA543168A711200B83408 /* MSPlainTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlainTableView.m; sourceTree = "<group>"; };
 		3ABBA544168A711200B83408 /* MSPlainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainTableViewCell.h; sourceTree = "<group>"; };
@@ -84,6 +85,8 @@
 		3ABBA54A168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSubtitleDetailPlainTableViewCell.h; sourceTree = "<group>"; };
 		3ABBA54B168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSubtitleDetailPlainTableViewCell.m; sourceTree = "<group>"; };
 		3ABBA553168A713400B83408 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E7D624BB16C6EADC00BF49A2 /* MSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableView.h; sourceTree = "<group>"; };
+		E7D624BC16C6EADC00BF49A2 /* MSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +225,8 @@
 				3AAA6FEA16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m */,
 				3ABBA546168A711200B83408 /* MSPlainTableViewHeaderView.h */,
 				3ABBA547168A711200B83408 /* MSPlainTableViewHeaderView.m */,
+				E7D624BB16C6EADC00BF49A2 /* MSTableView.h */,
+				E7D624BC16C6EADC00BF49A2 /* MSTableView.m */,
 			);
 			name = MSTableKit;
 			path = ../../MSTableKit;
@@ -315,6 +320,7 @@
 				3AAC377716A741900022B04D /* KGNoise.m in Sources */,
 				3AAC378316A741EE0022B04D /* UIColor+Expanded.m in Sources */,
 				3AAA6FEB16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m in Sources */,
+				E7D624BD16C6EADC00BF49A2 /* MSTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
