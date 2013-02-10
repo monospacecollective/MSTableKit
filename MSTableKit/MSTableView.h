@@ -1,9 +1,9 @@
 //
 //  MSTableView.h
-//  Plain Example
+//  MSTableKit
 //
 //  Created by Fabian Canas on 2/9/13.
-//  Copyright (c) 2013 Monospace Ltd. All rights reserved.
+//  Copyright (c) 2013 Fabian Canas. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
