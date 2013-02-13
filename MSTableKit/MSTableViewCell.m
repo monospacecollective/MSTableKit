@@ -36,6 +36,8 @@
 {
     [super layoutSubviews];
     
+    [self.accessoryTextLabel sizeToFit];
+    
     if (self.accessoryType == UITableViewCellAccessoryCheckmark) {
         self.accessoryView.frame = CGRectOffset(self.accessoryView.frame, 0.0, 2.0);
     }
