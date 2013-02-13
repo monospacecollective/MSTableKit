@@ -27,11 +27,14 @@
 {
     [super layoutSubviews];
     
-    UIColor *etchHighlightColor = [[MSPlainTableViewCell appearanceWhenContainedIn:self.class, nil] etchHighlightColor];
-    UIColor *etchShadowColor = [[MSPlainTableViewCell appearanceWhenContainedIn:self.class, nil] etchShadowColor];
+    UIColor *etchHighlightColor = [MSPlainTableViewCell.appearance etchHighlightColor];
+    UIColor *etchShadowColor = [MSPlainTableViewCell.appearance etchShadowColor];
     self.bottomHighlight.backgroundColor = etchHighlightColor;
     self.bottomShadow.backgroundColor = etchShadowColor;
     self.topShadow.backgroundColor = etchShadowColor;
+    
+    CGFloat highlightViewHeight = [MSPlainTableViewCell.appearance highlightViewHeight];
+    CGFloat shadowViewHeight = [MSPlainTableViewCell.appearance shadowViewHeight];
     
     if ((self.numberOfSections != 0) && ([self numberOfRowsInSection:0] != 0)) {
         
@@ -40,9 +43,9 @@
         CGRect bottomCellRect = [self rectForRowAtIndexPath:[NSIndexPath indexPathForRow:maxRow inSection:maxSection]];
         CGRect topCellRect = [self rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         
-        self.bottomHighlight.frame = CGRectMake(0.0, CGRectGetMaxY(bottomCellRect) + 1.0, self.bounds.size.width, 1.0);
-        self.bottomShadow.frame = CGRectMake(0.0, CGRectGetMaxY(bottomCellRect), self.bounds.size.width, 1.0);
-        self.topShadow.frame = CGRectMake(0.0, CGRectGetMinY(topCellRect) - 1.0, self.bounds.size.width, 1.0);
+        self.bottomHighlight.frame = CGRectMake(0.0, CGRectGetMaxY(bottomCellRect) + shadowViewHeight, self.bounds.size.width, highlightViewHeight);
+        self.bottomShadow.frame = CGRectMake(0.0, CGRectGetMaxY(bottomCellRect), self.bounds.size.width, shadowViewHeight);
+        self.topShadow.frame = CGRectMake(0.0, CGRectGetMinY(topCellRect) - shadowViewHeight, self.bounds.size.width, shadowViewHeight);
     }
 }
 

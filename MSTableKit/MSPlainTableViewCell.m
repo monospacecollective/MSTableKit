@@ -10,33 +10,7 @@
 #import "MSPlainTableView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MSPlainTableViewCell ()
-
-@property (nonatomic, strong) UIView *selectionView;
-@property (nonatomic, strong) UIView *highlightView;
-@property (nonatomic, strong) UIView *shadowView;
-
-@end
-
 @implementation MSPlainTableViewCell
-
-#pragma mark - NSObject
-
-+ (void)initialize
-{
-    [super initialize];
-    
-    UIColor *defaultTextColor = [UIColor blackColor];
-    [[self.class appearance] setTextColor:defaultTextColor];
-    
-    UIColor *defaultEtchHighlightColor = [UIColor colorWithWhite:0.75 alpha:1.0];
-    UIColor *defaultEtchShadowColor = [UIColor colorWithWhite:0.45 alpha:1.0];
-    UIColor *defaultSelectionColor = [UIColor colorWithWhite:0.0 alpha:0.15];
-    
-    [[self.class appearance] setEtchHighlightColor:defaultEtchHighlightColor];
-    [[self.class appearance] setEtchShadowColor:defaultEtchShadowColor];
-    [[self.class appearance] setSelectionColor:defaultSelectionColor];
-}
 
 #pragma mark - UIView
 
@@ -48,12 +22,12 @@
     
     if ([self.superview isKindOfClass:MSPlainTableView.class]) {        
         MSPlainTableView *enclosingTableView = (MSPlainTableView *)self.superview;
-        self.highlightView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, 1.0);
+        self.highlightView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.highlightViewHeight);
         NSIndexPath *indexPath = [enclosingTableView indexPathForCell:self];
         BOOL bottomRow = (indexPath.row == ([enclosingTableView numberOfRowsInSection:indexPath.section] - 1));
         if (!bottomRow) {
-            self.selectionView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height - 1.0);
-            self.shadowView.frame = CGRectMake(0.0, self.bounds.size.height - 1.0, self.bounds.size.width, 1.0);
+            self.selectionView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height - self.shadowViewHeight);
+            self.shadowView.frame = CGRectMake(0.0, self.bounds.size.height - self.shadowViewHeight, self.bounds.size.width, self.shadowViewHeight);
             self.shadowView.alpha = 1.0;
         } else {
             self.selectionView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
@@ -75,6 +49,9 @@
     self.shadowView = [[UIView alloc] init];
     [self insertSubview:self.shadowView atIndex:0];
     [self configureViews];
+    
+    _shadowViewHeight = 1.0;
+    _highlightViewHeight = 1.0;
 }
 
 - (void)configureViews
