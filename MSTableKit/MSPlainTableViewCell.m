@@ -14,6 +14,13 @@
 
 #pragma mark - UIView
 
+@synthesize selectionColor = _selectionColor;
+@synthesize etchHighlightColor = _etchHighlightColor;
+@synthesize etchShadowColor = _etchShadowColor;
+@synthesize backgroundGradient = _backgroundGradient;
+@synthesize highlightViewHeight = _highlightViewHeight;
+@synthesize shadowViewHeight = _shadowViewHeight;
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -91,6 +98,81 @@
     } else {
         updateBackgroundState();
     }
+}
+
+#pragma mark - Setters
+
+- (UIColor *)selectionColor
+{
+    return _selectionColor;
+}
+
+- (UIColor *)etchHighlightColor
+{
+    return _etchHighlightColor;
+}
+
+- (UIColor *)etchShadowColor
+{
+    return _etchShadowColor;
+}
+
+- (CAGradientLayer *)backgroundGradient
+{
+    return _backgroundGradient;
+}
+
+
+- (CGFloat)highlightViewHeight
+{
+    return _highlightViewHeight;
+}
+
+- (CGFloat)shadowViewHeight
+{
+    return _shadowViewHeight;
+}
+
+- (void)setSelectionColor:(UIColor *)selectionColor
+{
+    _selectionColor = selectionColor;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (void)setEtchHighlightColor:(UIColor *)etchHighlightColor
+{
+    _etchHighlightColor = etchHighlightColor;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (void)setEtchShadowColor:(UIColor *)etchShadowColor
+{
+    _etchShadowColor = etchShadowColor;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (void)setBackgroundGradient:(CAGradientLayer *)backgroundGradient
+{
+    _backgroundGradient = backgroundGradient;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (void)setHighlightViewHeight:(CGFloat)highlightViewHeight
+{
+    _highlightViewHeight = highlightViewHeight;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (void)setShadowViewHeight:(CGFloat)shadowViewHeight
+{
+    _shadowViewHeight = shadowViewHeight;
+    [self configureViews];
+    [self setNeedsDisplay];
 }
 
 @end
