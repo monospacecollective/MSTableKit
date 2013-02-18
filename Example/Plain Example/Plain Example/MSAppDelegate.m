@@ -26,18 +26,19 @@
     UIColor *cellEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:(0.1 + (color * 0.45))];
     UIColor *cellEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.5 * color)) alpha:1.0];
     
-    [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setEtchHighlightColor:cellEtchHighlightColor];
-    [[MSPlainTableViewCell appearanceWhenContainedIn:MSPlainTableView.class, nil] setEtchShadowColor:cellEtchShadowColor];
+    [MSPlainTableViewCell.appearance setEtchHighlightColor:cellEtchHighlightColor];
+    [MSPlainTableViewCell.appearance setEtchShadowColor:cellEtchShadowColor];
+    [MSPlainTableViewCell.appearance setSelectionColor:[UIColor colorWithWhite:0.0 alpha:0.1]];
     
     UIColor *headerTopEtchHighlightColor = [UIColor colorWithWhite:1.0 alpha:(0.1 + (color * 0.1))];
     UIColor *headerTopEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.5 * color)) alpha:1.0];
     UIColor *headerBottomEtchShadowColor = [UIColor colorWithWhite:(0.0 + (0.3 * color)) alpha:1.0];
-    UIColor *headerBackgorundColor = [[UIColor colorWithWhite:0.0 alpha:1.0] colorWithNoiseWithOpacity:0.05 andBlendMode:kCGBlendModeScreen];
+    UIColor *headerBackgroundColor = [[UIColor colorWithWhite:0.0 alpha:1.0] colorWithNoiseWithOpacity:0.05 andBlendMode:kCGBlendModeScreen];
     
     [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:headerTopEtchHighlightColor];
     [MSPlainTableViewHeaderView.appearance setTopEtchShadowColor:headerTopEtchShadowColor];
     [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:headerBottomEtchShadowColor];
-    [MSPlainTableViewHeaderView.appearance setBackgroundColor:headerBackgorundColor];
+    [MSPlainTableViewHeaderView.appearance setBackgroundColor:headerBackgroundColor];
     
     CAGradientLayer *defaultBackgroundGradient = [CAGradientLayer layer];
     UIColor *gradientTopColor = [UIColor colorWithWhite:1.0 alpha:0.05];
