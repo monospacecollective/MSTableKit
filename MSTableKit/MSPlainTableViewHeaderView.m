@@ -79,9 +79,6 @@
 {
     [super configureViews];
     
-    self.textLabel.font = self.class.defaultTextLabelFont;
-    self.detailTextLabel.font = self.class.defaultTextLabelFont;
-    
     self.topHighlightLine.backgroundColor = self.topEtchHighlightColor;
     self.topShadowLine.backgroundColor = self.topEtchShadowColor;
     self.bottomShadowLine.backgroundColor = self.bottomEtchShadowColor;
