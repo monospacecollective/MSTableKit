@@ -10,7 +10,7 @@
 
 @class CAGradientLayer;
 
-@interface MSPlainTableViewCell : MSTableViewCell <UIAppearanceContainer>
+@interface MSPlainTableViewCell : MSTableViewCell
 
 @property (nonatomic, strong) UIColor *selectionColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *etchHighlightColor UI_APPEARANCE_SELECTOR;
