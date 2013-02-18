@@ -16,6 +16,7 @@
     NSMutableDictionary *_titleTextAttributesForState;
     NSMutableDictionary *_detailTextAttributesForState;
     NSMutableDictionary *_accessoryTextAttributesForState;
+    NSMutableDictionary *_accessoryCharacterForAccessoryType;
     MSTableViewCellSelectionStyle _selectionStyle;
 }
 
@@ -37,10 +38,6 @@
     [super layoutSubviews];
     
     [self.accessoryTextLabel sizeToFit];
-    
-    if (self.accessoryType == UITableViewCellAccessoryCheckmark) {
-        self.accessoryView.frame = CGRectOffset(self.accessoryView.frame, 0.0, 2.0);
-    }
     
 #if defined(LAYOUT_DEBUG)
     // Color the background of the labels in the content view red
@@ -81,18 +78,9 @@
             self.accessoryView = nil;
             break;
         }
-        case UITableViewCellAccessoryDisclosureIndicator: {
-            self.accessoryTextLabel.font = [UIFont fontWithName:@"Zapf Dingbats" size:18.0];
-            self.accessoryTextLabel.text = @"\U0000276F";
-            [self.accessoryTextLabel sizeToFit];
-            self.accessoryView = self.accessoryTextLabel;
-            [self.contentView addSubview:self.accessoryView];
-            break;
-        }
+        case UITableViewCellAccessoryDisclosureIndicator:
         case UITableViewCellAccessoryCheckmark: {
-            // Has a nice checkmark - we want to use a label so that text customization works
-            self.accessoryTextLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:32.0];
-            self.accessoryTextLabel.text = @"\U00002713 ";
+            self.accessoryTextLabel.text = [self accessoryCharacterForAccessoryType:accessoryType];
             [self.accessoryTextLabel sizeToFit];
             self.accessoryView = self.accessoryTextLabel;
             [self.contentView addSubview:self.accessoryView];
@@ -137,9 +125,15 @@
     _titleTextAttributesForState = [NSMutableDictionary new];
     _detailTextAttributesForState = [NSMutableDictionary new];
     _accessoryTextAttributesForState = [NSMutableDictionary new];
+    _accessoryCharacterForAccessoryType = [NSMutableDictionary new];
+    
+    _accessoryCharacterForAccessoryType[@(UITableViewCellAccessoryCheckmark)] = @"\U00002713";
+    _accessoryCharacterForAccessoryType[@(UITableViewCellAccessoryDisclosureIndicator)] = @"\U0000276F";
     
     _accessoryTextLabel = [[UILabel alloc] init];
     self.accessoryTextLabel.backgroundColor = [UIColor clearColor];
+    self.accessoryTextLabel.font = [UIFont fontWithName:@"Zapf Dingbats" size:18.0];
+    
     [self configureViews];
 }
 
@@ -148,6 +142,9 @@
     [self applyTextAttributes:[self titleTextAttributesForState:self.controlState] toLabel:self.textLabel];
     [self applyTextAttributes:[self detailTextAttributesForState:self.controlState] toLabel:self.detailTextLabel];
     [self applyTextAttributes:[self accessoryTextAttributesForState:self.controlState] toLabel:self.accessoryTextLabel];
+    
+    self.accessoryTextLabel.text = [self accessoryCharacterForAccessoryType:self.accessoryType];
+    [self.accessoryTextLabel sizeToFit];
 }
 
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated
@@ -274,6 +271,20 @@
 - (NSDictionary *)accessoryTextAttributesForState:(UIControlState)state
 {
     return [self valueInStateDictionary:_accessoryTextAttributesForState forControlState:state];
+}
+
+#pragma mark - UITableViewCellAccessoryType Accessors
+
+- (void)setAccessoryCharacter:(NSString *)accessoryCharacter forAccessoryType:(UITableViewCellAccessoryType)accessoryType
+{
+    _accessoryCharacterForAccessoryType[@(accessoryType)] = accessoryCharacter;
+    [self configureViews];
+    [self setNeedsDisplay];
+}
+
+- (NSString *)accessoryCharacterForAccessoryType:(UITableViewCellAccessoryType)accessoryType UI_APPEARANCE_SELECTOR
+{
+    return _accessoryCharacterForAccessoryType[@(accessoryType)];
 }
 
 @end

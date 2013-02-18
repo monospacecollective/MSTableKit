@@ -28,6 +28,9 @@ typedef NS_ENUM(NSInteger, MSTableViewCellSelectionStyle) {
 - (NSDictionary *)detailTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 - (NSDictionary *)accessoryTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
+- (void)setAccessoryCharacter:(NSString *)accessorycharacter forAccessoryType:(UITableViewCellAccessoryType)accessoryType UI_APPEARANCE_SELECTOR;
+- (NSString *)accessoryCharacterForAccessoryType:(UITableViewCellAccessoryType)accessoryType UI_APPEARANCE_SELECTOR;
+
 - (void)updateBackgroundState:(BOOL)darkened animated:(BOOL)animated;
 
 - (void)initialize;
