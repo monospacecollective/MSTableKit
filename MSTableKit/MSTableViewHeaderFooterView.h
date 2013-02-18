@@ -27,6 +27,7 @@
 
 // Sizing Calculation
 + (UIFont *)defaultTextLabelFont;
++ (UIFont *)defaultDetailTextLabelFont;
 + (CGFloat)heightForText:(NSString *)text forWidth:(CGFloat)width;
 + (CGSize)padding;
 
