@@ -81,7 +81,7 @@
     });
 }
 
-- (void)setSelectionStyle:(MSTableViewCellSelectionStyle)selectionStyle
+- (void)setSelectionStyle:(NSInteger)selectionStyle
 {
     [super setSelectionStyle:selectionStyle];
     [self.groupedCellBackgroundView setNeedsDisplay];

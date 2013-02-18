@@ -17,7 +17,8 @@ typedef NS_ENUM(NSInteger, MSTableViewCellSelectionStyle) {
 
 @property (nonatomic, readonly) UILabel *accessoryTextLabel;
 @property (nonatomic, readonly) UIControlState controlState;
-@property (nonatomic, assign) MSTableViewCellSelectionStyle selectionStyle;
+
+@property (nonatomic, assign) NSInteger selectionStyle;
 
 - (void)setTitleTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 - (void)setDetailTextAttributes:(NSDictionary *)textAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;

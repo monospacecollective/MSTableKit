@@ -165,12 +165,12 @@
 
 #pragma mark Selection Style Accessors
 
-- (void)setSelectionStyle:(MSTableViewCellSelectionStyle)selectionStyle
+- (void)setSelectionStyle:(NSInteger)selectionStyle
 {
     _selectionStyle = selectionStyle;
 }
 
-- (MSTableViewCellSelectionStyle)selectionStyle
+- (NSInteger)selectionStyle
 {
     return _selectionStyle;
 }
