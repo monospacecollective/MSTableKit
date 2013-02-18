@@ -8,6 +8,7 @@
 
 #import "MSTableViewHeaderFooterView.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 //#define LAYOUT_DEBUG
 
 @interface MSTableViewHeaderFooterView ()
@@ -19,11 +20,10 @@
 
 @implementation MSTableViewHeaderFooterView
 
-#pragma mark - NSObject
-
 + (void)initialize
 {
     [super initialize];
+    
     [self applyDefaultAppearance];
 }
 
@@ -50,18 +50,24 @@
 - (void)layoutSubviews
 {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-    [super layoutSubviews];
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        [super layoutSubviews];
+    }
 #endif
     
     CGFloat maxTextLabelWidth = (CGRectGetWidth(self.frame) - (self.class.padding.width * 2.0));
     CGSize textLabelSize = [self.textLabel.text sizeWithFont:self.textLabel.font constrainedToSize:CGSizeMake(maxTextLabelWidth, CGFLOAT_MAX)];
-    textLabelSize.width = maxTextLabelWidth;
-    
     CGRect textLabelFrame = self.textLabel.frame;
     textLabelFrame.size = textLabelSize;
     textLabelFrame.origin = (CGPoint){self.class.padding.width, self.class.padding.height};
-    
     self.textLabel.frame = textLabelFrame;
+
+    CGFloat maxDetailTextLabelWidth = (CGRectGetWidth(self.frame) - (self.class.padding.width * 2.0) - textLabelFrame.size.width);
+    CGSize detailTextLabelSize = [self.detailTextLabel.text sizeWithFont:self.detailTextLabel.font constrainedToSize:CGSizeMake(maxDetailTextLabelWidth, CGFLOAT_MAX)];
+    CGRect detailTextLabelFrame = self.detailTextLabel.frame;
+    detailTextLabelFrame.size = detailTextLabelSize;
+    detailTextLabelFrame.origin = (CGPoint){(CGRectGetWidth(self.frame) - CGRectGetWidth(detailTextLabelFrame) - self.class.padding.width), self.class.padding.height};
+    self.detailTextLabel.frame = detailTextLabelFrame;
     
     [self configureViews];
 }
@@ -89,12 +95,13 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
     _textLabel = [[UILabel alloc] init];
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    self.textLabel.font = self.class.defaultTextLabelFont;
     [self addSubview:self.textLabel];
     
     _detailTextLabel = [[UILabel alloc] init];
     self.detailTextLabel.backgroundColor = [UIColor clearColor];
-    self.detailTextLabel.font = [UIFont systemFontOfSize:17.0];
+    self.detailTextLabel.textAlignment = UITextAlignmentRight;
+    self.detailTextLabel.font = self.class.defaultDetailTextLabelFont;
     [self addSubview:self.detailTextLabel];
     
     [self configureViews];
@@ -108,6 +115,7 @@
 #if defined(LAYOUT_DEBUG)
     self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
     self.textLabel.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+    self.detailTextLabel.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
 #endif
 }
 
@@ -148,9 +156,31 @@
     return nil;
 }
 
++ (UIFont *)defaultDetailTextLabelFont
+{
+    NSAssert(NO, @"This method should be overridden by subclasses");
+    return nil;
+}
+
 + (void)applyDefaultAppearance
 {
     
+}
+
+#pragma mark - Text Attributes
+
+- (void)setTitleTextAttributes:(NSDictionary *)titleTextAttributes
+{
+    _titleTextAttributes = titleTextAttributes;
+    [self applyTextAttributes:titleTextAttributes toLabel:self.textLabel];
+    [self setNeedsDisplay];
+}
+
+- (void)setDetailTextAttributes:(NSDictionary *)detailTextAttributes
+{
+    _detailTextAttributes = detailTextAttributes;
+    [self applyTextAttributes:detailTextAttributes toLabel:self.detailTextLabel];
+    [self setNeedsDisplay];
 }
 
 @end

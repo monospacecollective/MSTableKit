@@ -30,8 +30,7 @@
 {
     [super layoutSubviews];
     
-    
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0   
     self.bottomShadowLine.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - 1.0), CGRectGetWidth(self.bounds), 1.0);
     self.topShadowLine.frame = CGRectMake(0.0, -1.0, CGRectGetWidth(self.bounds), 1.0);
     self.topHighlightLine.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), 1.0);
@@ -106,6 +105,11 @@
 + (UIFont *)defaultTextLabelFont
 {
     return [UIFont boldSystemFontOfSize:15.0];
+}
+
++ (UIFont *)defaultDetailTextLabelFont
+{
+    return [UIFont systemFontOfSize:15.0];
 }
 
 @end
