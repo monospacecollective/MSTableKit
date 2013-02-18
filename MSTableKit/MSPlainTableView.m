@@ -33,8 +33,8 @@
     self.bottomShadow.backgroundColor = etchShadowColor;
     self.topShadow.backgroundColor = etchShadowColor;
     
-    CGFloat highlightViewHeight = [MSPlainTableViewCell.appearance highlightViewHeight];
-    CGFloat shadowViewHeight = [MSPlainTableViewCell.appearance shadowViewHeight];
+    CGFloat highlightViewHeight = (([MSPlainTableViewCell.appearance highlightViewHeight] == 0.0) ? 1.0 : [MSPlainTableViewCell.appearance highlightViewHeight]);
+    CGFloat shadowViewHeight = (([MSPlainTableViewCell.appearance highlightViewHeight] == 0.0) ? 1.0 : [MSPlainTableViewCell.appearance shadowViewHeight]);
     
     if ((self.numberOfSections != 0) && ([self numberOfRowsInSection:0] != 0)) {
         
