@@ -133,6 +133,8 @@
     return _shadowViewHeight;
 }
 
+#pragma mark - Getters
+
 - (void)setSelectionColor:(UIColor *)selectionColor
 {
     _selectionColor = selectionColor;
