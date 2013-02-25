@@ -31,10 +31,4 @@
     return CGSizeMake(horizontalPadding, 6.0);
 }
 
-+ (UIFont *)defaultTextLabelFont
-{
-    return [UIFont boldSystemFontOfSize:17.0];
-}
-
-
 @end

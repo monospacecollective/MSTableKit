@@ -152,14 +152,12 @@
 
 + (UIFont *)defaultTextLabelFont
 {
-    NSAssert(NO, @"This method should be overridden by subclasses");
-    return nil;
+    return [UIFont boldSystemFontOfSize:17.0];
 }
 
 + (UIFont *)defaultDetailTextLabelFont
 {
-    NSAssert(NO, @"This method should be overridden by subclasses");
-    return nil;
+    return [UIFont systemFontOfSize:17.0];
 }
 
 + (void)applyDefaultAppearance
