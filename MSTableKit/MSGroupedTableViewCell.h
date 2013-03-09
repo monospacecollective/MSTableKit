@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "MSTableViewCell.h"
+#import "MSTableCell.h"
 #import "MSGroupedCellBackgroundView.h"
 
-@interface MSGroupedTableViewCell : MSTableViewCell
+@interface MSGroupedTableViewCell : MSTableCell
 
 @property (nonatomic, strong) MSGroupedCellBackgroundView *groupedCellBackgroundView;
 

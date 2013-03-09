@@ -14,8 +14,10 @@
 
 @property (strong, nonatomic) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *topEtchHighlightColor UI_APPEARANCE_SELECTOR;
-@property (strong, nonatomic) UIColor *topEtchShadowColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor *bottomEtchShadowColor UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) CAGradientLayer *backgroundGradient UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, assign) CGFloat topEtchHighlightHeight UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat bottomEtchShadowHeight UI_APPEARANCE_SELECTOR;
 
 @end

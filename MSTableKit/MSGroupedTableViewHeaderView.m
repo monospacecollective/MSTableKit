@@ -15,20 +15,16 @@
 - (void)initialize
 {
     [super initialize];
-    
-    self.textLabel.font = self.class.defaultTextLabelFont;
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-    self.textLabel.textAlignment = NSTextAlignmentLeft;
-#else
-    self.textLabel.textAlignment = UITextAlignmentLeft;
-#endif
-    self.detailTextLabel.hidden = YES;
+    self.title.textAlignment = NSTextAlignmentLeft;
 }
 
-+ (CGSize)padding
++ (void)applyDefaultAppearance
 {
-    CGFloat horizontalPadding = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 54.0 : 20.0);
-    return CGSizeMake(horizontalPadding, 6.0);
+    [self.appearance setTitleTextAttributes:@{ UITextAttributeFont : [UIFont boldSystemFontOfSize:17.0] }];
+    
+//    CGFloat horizontalPadding = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 54.0 : 20.0);
+//    CGFloat verticalPadding = 6.0;
+//    [self.appearance setPadding:UIEdgeInsetsMake(verticalPadding, horizontalPadding, verticalPadding, horizontalPadding)];
 }
 
 @end

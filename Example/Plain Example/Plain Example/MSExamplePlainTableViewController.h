@@ -8,6 +8,6 @@
 
 @class MSPlainTableView;
 
-@interface MSExamplePlainTableViewController : UITableViewController
+@interface MSExamplePlainTableViewController : UICollectionViewController
 
 @end

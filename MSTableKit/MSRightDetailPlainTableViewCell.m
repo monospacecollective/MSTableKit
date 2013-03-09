@@ -10,13 +10,10 @@
 
 @implementation MSRightDetailPlainTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (void)layoutSubviews
 {
-    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
-    if (self) {
-        
-    }
-    return self;
+    [super layoutSubviews];
+    // TODO: 
 }
 
 @end

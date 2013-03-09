@@ -17,7 +17,7 @@
 
 @implementation MSButtonGroupedTableViewCell
 
-#pragma mark - MSTableViewCell
+#pragma mark - MSTableCell
 
 - (void)initialize
 {
@@ -28,7 +28,7 @@
     self.groupedCellBackgroundView.backgroundNoiseEnabled = YES;
     [self.groupedCellBackgroundView setInnerShadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3] forState:UIControlStateNormal];
     
-    self.textLabel.textAlignment = UITextAlignmentCenter;
+    self.title.textAlignment = NSTextAlignmentCenter;
     self.buttonBackgroundColor = [UIColor darkGrayColor];
 }
 
@@ -42,12 +42,12 @@
     [self.groupedCellBackgroundView setBorderColor:[buttonBackgroundColor colorByAdding:-0.3] forState:UIControlStateHighlighted];
 //    if (buttonBackgroundColor.brightness < 0.5) {
 //        self.titleTextColor = [UIColor whiteColor];
-//        self.textLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-//        self.textLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+//        self.title.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+//        self.title.shadowOffset = CGSizeMake(0.0, -1.0);
 //    } else {
 //        self.titleTextColor = [UIColor blackColor];
-//        self.textLabel.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
-//        self.textLabel.shadowOffset = CGSizeMake(0.0, 1.0);
+//        self.title.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
+//        self.title.shadowOffset = CGSizeMake(0.0, 1.0);
 //    }
     _buttonbackgroundColor = buttonBackgroundColor;
 }

@@ -12,166 +12,198 @@
 NSString * const MSCellReuseIdentifier = @"CellReuseIdentifier";
 NSString * const MSRightDetailCellReuseIdentifier = @"RightDetailCellReuseIdentifier";
 NSString * const MSSubtitleDetailCellReuseIdentifier = @"SubtitleDetailCellReuseIdentifier";
+NSString * const MSMultilineCellReuseIdentifier = @"MultilineCellReuseIdentifier";
 NSString * const MSButtonCellReuseIdentifier = @"ButtonCellReuseIdentifier";
 
 NSString * const MSHeaderReuseIdentifier = @"HeaderReuseIdentifier";
 NSString * const MSFooterReuseIdentifier = @"FooterReuseIdentifier";
 
-@interface MSExampleGroupedTableViewController ()
+@interface MSExampleGroupedTableViewController () <UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *collectionViewLayout;
 
 @property (nonatomic, strong) NSArray *cellClasses;
-@property (nonatomic, strong) NSArray *cellClassNames;
 @property (nonatomic, strong) NSArray *cellClassReuseIdentifiers;
+@property (nonatomic, strong) NSArray *cellClassNames;
+@property (nonatomic, strong) NSArray *cellClassDescriptions;
 
 @end
 
 @implementation MSExampleGroupedTableViewController
 
-- (void)loadView
+- (id)init
 {
-    self.tableView = [[MSGroupedTableView alloc] init];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    UICollectionViewFlowLayout *collectionViewFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    collectionViewFlowLayout.minimumLineSpacing = 0.0;
+    collectionViewFlowLayout.sectionInset = UIEdgeInsetsZero;
+    self = [super initWithCollectionViewLayout:collectionViewFlowLayout];
+    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.collectionView.backgroundColor = [UIColor lightGrayColor];
 
     self.cellClasses = @[
-                         MSGroupedTableViewCell.class,
-                         MSSubtitleDetailGroupedTableViewCell.class,
-                         MSRightDetailGroupedTableViewCell.class
-                         ];
+        MSGroupedTableViewCell.class,
+        MSSubtitleDetailGroupedTableViewCell.class,
+        MSRightDetailGroupedTableViewCell.class,
+        MSMultlineGroupedTableViewCell.class,
+        MSButtonGroupedTableViewCell.class
+    ];
     self.cellClassReuseIdentifiers = @[
-                                       MSCellReuseIdentifier,
-                                       MSSubtitleDetailCellReuseIdentifier,
-                                       MSRightDetailCellReuseIdentifier
-                                       ];
+        MSCellReuseIdentifier,
+        MSSubtitleDetailCellReuseIdentifier,
+        MSRightDetailCellReuseIdentifier,
+        MSMultilineCellReuseIdentifier,
+        MSButtonCellReuseIdentifier
+    ];
     self.cellClassNames = @[
-                            @"Plain Cell",
-                            @"Subtitle Detail Cell",
-                            @"Right Detail Cell",
-                            @"Button Cell"
-                            ];
-    
-    [self.tableView registerClass:MSButtonGroupedTableViewCell.class forCellReuseIdentifier:MSButtonCellReuseIdentifier];
+        @"Plain Cell",
+        @"Subtitle Detail Cell",
+        @"Right Detail Cell",
+        @"Multiline Cell",
+        @"Button Cell"
+    ];
+    self.cellClassDescriptions = @[
+        @"A cell that displays a title label, as well as a right-aligned accessory view",
+        @"A cell that displays a title label with a detail label underneath, as well as a right-aligned accessory view",
+        @"A cell that displays a title label with a detail to the right of it, as well as a right-aligned accessory view",
+        @"A cell that displays a title label sized to multiple lines of text, as well as a right-aligned accessory view",
+        @"A cell that displays a styed button, with centered text on a single line"
+    ];
     
     // Cell Registration
     for (Class cellClass in self.cellClasses) {
-        [self.tableView registerClass:cellClass forCellReuseIdentifier:self.cellClassReuseIdentifiers[[self.cellClasses indexOfObject:cellClass]]];
+        [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:self.cellClassReuseIdentifiers[[self.cellClasses indexOfObject:cellClass]]];
     }
     
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-    [self.tableView registerClass:MSGroupedTableViewHeaderView.class forHeaderFooterViewReuseIdentifier:MSHeaderReuseIdentifier];
-    [self.tableView registerClass:MSGroupedTableViewFooterView.class forHeaderFooterViewReuseIdentifier:MSFooterReuseIdentifier];
-#endif
+    [self.collectionView registerClass:MSGroupedTableViewHeaderView.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:MSHeaderReuseIdentifier];
+    [self.collectionView registerClass:MSGroupedTableViewFooterView.class forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:MSFooterReuseIdentifier];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - MSExampleGroupedTableViewController
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSString *)collectionView:(UICollectionView *)collectionView titleForSupplementaryElementOfKind:(NSString *)kind inSection:(NSInteger)section
 {
-    return (self.cellClasses.count + 1);
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return ((section < self.cellClasses.count) ? 3 : 1);
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return self.cellClassNames[section];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-    if ((section % 3) == 0) {
+    if (kind == UICollectionElementKindSectionHeader) {
+        return self.cellClassNames[section];
+    }
+    else if (kind == UICollectionElementKindSectionFooter) {
+        return self.cellClassDescriptions[section];
+    } else {
         return nil;
-    } else if ((section % 3) == 1) {
-        return @"Fringilla Nibh Quam Euismod Ligula";
-    } else if ((section % 3) == 2) {
-        return @"Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+    }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.collectionView reloadData];
+}
+
+- (NSString *)titleForMultilineCell
+{
+    return @"Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.";
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return self.cellClasses.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if (self.cellClasses[section] == MSGroupedTableViewCell.class) {
+        return 3;
+    } else {
+        return 1;
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MSTableCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:self.cellClassReuseIdentifiers[indexPath.section] forIndexPath:indexPath];
+    
+    if (self.cellClasses[indexPath.section] == MSGroupedTableViewCell.class) {
+        if ((indexPath.row % 3) == 0) {
+            cell.title.text = @"No Accessory";
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else if ((indexPath.row % 3) == 1) {
+            cell.title.text = @"Disclosure Indicator";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else if ((indexPath.row % 3) == 2) {
+            cell.title.text = @"Checkmark";
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
+    else if (self.cellClasses[indexPath.section] == MSSubtitleDetailGroupedTableViewCell.class) {
+        cell.title.text = @"Title Text";
+        cell.detail.text = @"Detail text";
+    }
+    else if (self.cellClasses[indexPath.section] == MSRightDetailGroupedTableViewCell.class) {
+        cell.title.text = @"Title Text";
+        cell.detail.text = @"Detail text";
+    }
+    else if (self.cellClasses[indexPath.section] == MSMultlineGroupedTableViewCell.class) {
+        cell.title.text = [self titleForMultilineCell];
+    }
+    else if (self.cellClasses[indexPath.section] == MSButtonGroupedTableViewCell.class) {
+        cell.title.text = @"Button Title Text";
+    }
+
+    return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if (kind == UICollectionElementKindSectionHeader) {
+        MSGroupedTableViewHeaderView *headerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MSHeaderReuseIdentifier forIndexPath:indexPath];
+        headerView.title.text = [self collectionView:collectionView titleForSupplementaryElementOfKind:kind inSection:indexPath.section];
+        return headerView;
+    }
+    else if (kind == UICollectionElementKindSectionFooter) {
+        MSGroupedTableViewFooterView *footerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MSFooterReuseIdentifier forIndexPath:indexPath];
+        footerView.title.text = [self collectionView:collectionView titleForSupplementaryElementOfKind:kind inSection:indexPath.section];
+        return footerView;
     }
     return nil;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - UICollectionViewDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section < self.cellClasses.count) {
-        
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellClassReuseIdentifiers[indexPath.section]];
-        
-        if ((indexPath.row % 3) == 0) {
-            cell.textLabel.text = @"No Accessory";
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        } else if ((indexPath.row % 3) == 1) {
-            cell.textLabel.text = @"Disclosure Indicator";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else if ((indexPath.row % 3) == 2) {
-            cell.textLabel.text = @"Checkmark";
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        
-        cell.detailTextLabel.text = @"Detail text";
-        
-        return cell;
-        
+    CGFloat width = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? CGRectGetWidth(self.view.frame) : CGRectGetHeight(self.view.frame);
+    CGFloat height;
+    if ((indexPath.section < (NSInteger)self.cellClasses.count) && self.cellClasses[indexPath.section] == MSMultlineGroupedTableViewCell.class) {
+        height = [MSMultlineGroupedTableViewCell heightForText:[self titleForMultilineCell] forWidth:width];
     } else {
-        
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:MSButtonCellReuseIdentifier];
-        cell.textLabel.text = @"Button Text";
-        return cell;
-        
+        height = [MSGroupedTableViewCell height];
     }
+    return CGSizeMake(width, height);
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-    MSGroupedTableViewHeaderView *headerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:MSHeaderReuseIdentifier];
-#else
-    MSGroupedTableViewHeaderView *headerView = [[MSGroupedTableViewHeaderView alloc] init];
-    headerView.textLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-#endif
-    return headerView;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-    MSGroupedTableViewFooterView *footerView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:MSFooterReuseIdentifier];
-#else
-    MSGroupedTableViewFooterView *footerView = [[MSGroupedTableViewFooterView alloc] init];
-    footerView.textLabel.text = [self tableView:tableView titleForFooterInSection:section];
-#endif
-    return footerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     CGFloat width = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? CGRectGetWidth(self.view.frame) : CGRectGetHeight(self.view.frame);
-    return [MSGroupedTableViewFooterView heightForText:[self tableView:tableView titleForFooterInSection:section] forWidth:width];
+    CGFloat height = [MSGroupedTableViewHeaderView heightForText:[self collectionView:collectionView titleForSupplementaryElementOfKind:UICollectionElementKindSectionHeader inSection:section] forWidth:width];
+    return CGSizeMake(width, height);
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
     CGFloat width = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? CGRectGetWidth(self.view.frame) : CGRectGetHeight(self.view.frame);
-    return [MSGroupedTableViewHeaderView heightForText:[self tableView:tableView titleForHeaderInSection:section] forWidth:width];
+    CGFloat height = [MSGroupedTableViewFooterView heightForText:[self collectionView:collectionView titleForSupplementaryElementOfKind:UICollectionElementKindSectionFooter inSection:section] forWidth:width];
+    return CGSizeMake(width, height);
 }
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    
 }
 
 @end

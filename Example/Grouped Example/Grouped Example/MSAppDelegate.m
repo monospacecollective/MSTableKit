@@ -15,7 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.tableViewController = [[MSExampleGroupedTableViewController alloc] initWithNibName:nil bundle:nil];
+    self.tableViewController = [[MSExampleGroupedTableViewController alloc] init];
     
     CGFloat color = 1.0;
     UIColor* backgroundColor = [UIColor colorWithWhite:(0.2 + (0.6 * color)) alpha:1.0];
@@ -25,22 +25,26 @@
     UIColor *shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
     NSValue *shadowOffset = [NSValue valueWithCGSize:CGSizeMake(0, 1.0)];
     
-    [[MSTableViewCell appearance] setTitleTextAttributes:@{
+    [[MSGroupedTableViewCell appearance] setTitleTextAttributes:@{
                                UITextAttributeTextColor : [UIColor blackColor],
                          UITextAttributeTextShadowColor : shadowColor,
                         UITextAttributeTextShadowOffset : shadowOffset,
      } forState:UIControlStateNormal];
     
-    [[MSTableViewCell appearance] setDetailTextAttributes:@{
+    [[MSGroupedTableViewCell appearance] setDetailTextAttributes:@{
                                 UITextAttributeTextColor : [UIColor blackColor],
                           UITextAttributeTextShadowColor : shadowColor,
                          UITextAttributeTextShadowOffset : shadowOffset,
      } forState:UIControlStateNormal];
     
-    [[MSTableViewCell appearance] setAccessoryTextAttributes:@{
+    [[MSTableCell appearance] setAccessoryTextAttributes:@{
                                    UITextAttributeTextColor : [UIColor darkGrayColor],
                              UITextAttributeTextShadowColor : shadowColor,
                             UITextAttributeTextShadowOffset : shadowOffset,
+     } forState:UIControlStateNormal];
+    
+    [[MSMultlineGroupedTableViewCell appearance] setTitleTextAttributes:@{
+                                                   UITextAttributeFont : [UIFont systemFontOfSize:15.0]
      } forState:UIControlStateNormal];
     
     [[MSButtonGroupedTableViewCell appearance] setTitleTextAttributes:@{
@@ -60,9 +64,6 @@
     };
     
     [MSTableViewHeaderFooterView.appearance setTitleTextAttributes:headerFooterTextAttributes];
-    
-    [[UILabel appearanceWhenContainedIn:MSTableViewCell.class, nil] setShadowColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
-    [[UILabel appearanceWhenContainedIn:MSTableViewCell.class, nil] setShadowOffset:CGSizeMake(0.0, 1.0)];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.tableViewController;

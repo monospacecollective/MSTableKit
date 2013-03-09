@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSExampleGroupedTableViewController : UITableViewController
+@interface MSExampleGroupedTableViewController : UICollectionViewController
 
 @end

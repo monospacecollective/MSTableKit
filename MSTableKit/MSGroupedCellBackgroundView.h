@@ -21,7 +21,9 @@ typedef NS_ENUM(NSUInteger, MSGroupedCellBackgroundViewType) {
 
 @property (nonatomic, assign) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) BOOL backgroundColorGradientEnabled UI_APPEARANCE_SELECTOR;
+
 @property (nonatomic, assign) BOOL middleBottomUsesShadowColorForNormalInnerShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) BOOL topMiddleUsesShadowColorForNormalInnerShadowColor UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, assign) BOOL backgroundNoiseEnabled UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGFloat noiseOpacity UI_APPEARANCE_SELECTOR;

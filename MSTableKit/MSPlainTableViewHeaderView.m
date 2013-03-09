@@ -7,18 +7,13 @@
 //
 
 #import "MSPlainTableViewHeaderView.h"
-#import "MSPlainTableView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MSPlainTableViewHeaderView ()
 
-@property (nonatomic, strong) UIView *topShadowLine;
-@property (nonatomic, strong) UIView *topHighlightLine;
-@property (nonatomic, strong) UIView *bottomShadowLine;
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+@property (nonatomic, strong) UIView *topEtchHighlightView;
+@property (nonatomic, strong) UIView *bottomEtchShadowView;
 @property (strong, nonatomic) UIView *backgroundView;
-#endif
 
 @end
 
@@ -30,21 +25,12 @@
 {
     [super layoutSubviews];
     
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0   
-    self.bottomShadowLine.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - 1.0), CGRectGetWidth(self.bounds), 1.0);
-    self.topShadowLine.frame = CGRectMake(0.0, -1.0, CGRectGetWidth(self.bounds), 1.0);
-    self.topHighlightLine.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), 1.0);
-#else
-    self.bottomShadowLine.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - 1.0), CGRectGetWidth(self.bounds), 1.0);
-    self.topShadowLine.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), 1.0);
-    self.topHighlightLine.frame = CGRectMake(0.0, 1.0, CGRectGetWidth(self.bounds), 1.0);
-#endif
+    self.bottomEtchShadowView.frame = CGRectMake(0.0, (CGRectGetHeight(self.bounds) - self.bottomEtchShadowHeight), CGRectGetWidth(self.bounds), self.bottomEtchShadowHeight);
+    self.topEtchHighlightView.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(self.bounds), self.topEtchHighlightHeight);
     
     CGRect backgroundFrame = (CGRect){{0.0, 0.0}, self.frame.size};
     self.backgroundGradient.frame = backgroundFrame;
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
     self.backgroundView.frame = backgroundFrame;
-#endif
 }
 
 #pragma mark - MSGroupedTableViewHeaderView
@@ -57,30 +43,21 @@
     self.layer.masksToBounds = NO;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
-    self.topHighlightLine = [[UIView alloc] init];
-    self.bottomShadowLine = [[UIView alloc] init];
-    self.topShadowLine = [[UIView alloc] init];
     self.backgroundView = [[UIView alloc] init];
+    self.topEtchHighlightView = [[UIView alloc] init];
+    self.bottomEtchShadowView = [[UIView alloc] init];
     
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-    [self.contentView addSubview:self.topHighlightLine];
-    [self.contentView addSubview:self.bottomShadowLine];
-    [self.contentView addSubview:self.topShadowLine];
-#else
     [self insertSubview:self.backgroundView atIndex:0];
-    [self insertSubview:self.topHighlightLine aboveSubview:self.backgroundView];
-    [self insertSubview:self.bottomShadowLine aboveSubview:self.backgroundView];
-    [self insertSubview:self.topShadowLine aboveSubview:self.backgroundView];
-#endif
+    [self insertSubview:self.topEtchHighlightView aboveSubview:self.backgroundView];
+    [self insertSubview:self.bottomEtchShadowView aboveSubview:self.backgroundView];
 }
 
 - (void)configureViews
 {
     [super configureViews];
     
-    self.topHighlightLine.backgroundColor = self.topEtchHighlightColor;
-    self.topShadowLine.backgroundColor = self.topEtchShadowColor;
-    self.bottomShadowLine.backgroundColor = self.bottomEtchShadowColor;
+    self.topEtchHighlightView.backgroundColor = self.topEtchHighlightColor;
+    self.bottomEtchShadowView.backgroundColor = self.bottomEtchShadowColor;
     self.backgroundView.backgroundColor = self.backgroundColor;
     
     if (self.backgroundGradient && ![self.layer.sublayers containsObject:self.backgroundGradient]) {
@@ -97,19 +74,10 @@
     }
 }
 
-+ (CGSize)padding
++ (void)applyDefaultAppearance
 {
-    return CGSizeMake(6.0, 4.0);
-}
-
-+ (UIFont *)defaultTextLabelFont
-{
-    return [UIFont boldSystemFontOfSize:15.0];
-}
-
-+ (UIFont *)defaultDetailTextLabelFont
-{
-    return [UIFont systemFontOfSize:15.0];
+    [self.appearance setTopEtchHighlightHeight:1.0];
+    [self.appearance setBottomEtchShadowHeight:1.0];
 }
 
 @end

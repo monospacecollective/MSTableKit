@@ -10,7 +10,12 @@
 		3AAA6FEB16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA6FEA16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m */; };
 		3AAC377716A741900022B04D /* KGNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC377616A741900022B04D /* KGNoise.m */; };
 		3AAC378316A741EE0022B04D /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC377D16A741EE0022B04D /* UIColor+Expanded.m */; };
-		3AB7D36C168A7E100075DB45 /* MSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7D36B168A7E100075DB45 /* MSTableViewCell.m */; };
+		3AB7C67D16E57E5800CBE9CE /* UILabel+ApplyTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7C67A16E57E5800CBE9CE /* UILabel+ApplyTextAttributes.m */; };
+		3AB7C67E16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7C67B16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.m */; };
+		3AB7C68116E6ABB700CBE9CE /* MSCollectionViewTableLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7C68016E6ABB600CBE9CE /* MSCollectionViewTableLayout.m */; };
+		3AB7C68416E6B4A500CBE9CE /* MSTableCellEtch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7C68316E6B4A500CBE9CE /* MSTableCellEtch.m */; };
+		3AB7C68716E6CB4C00CBE9CE /* MSPlainSelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7C68616E6CB4B00CBE9CE /* MSPlainSelectedBackground.m */; };
+		3AB7D36C168A7E100075DB45 /* MSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7D36B168A7E100075DB45 /* MSTableCell.m */; };
 		3AB7D378168A83E20075DB45 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB7D36E168A83E20075DB45 /* Icon-72.png */; };
 		3AB7D379168A83E20075DB45 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB7D36F168A83E20075DB45 /* Icon-72@2x.png */; };
 		3AB7D37A168A83E20075DB45 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB7D370168A83E20075DB45 /* Icon-Small-50.png */; };
@@ -31,7 +36,6 @@
 		3ABBA531168A707D00B83408 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABBA530168A707D00B83408 /* Default@2x.png */; };
 		3ABBA533168A707D00B83408 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABBA532168A707D00B83408 /* Default-568h@2x.png */; };
 		3ABBA53B168A709C00B83408 /* MSExamplePlainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA53A168A709C00B83408 /* MSExamplePlainTableViewController.m */; };
-		3ABBA54E168A711200B83408 /* MSPlainTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA543168A711200B83408 /* MSPlainTableView.m */; };
 		3ABBA54F168A711200B83408 /* MSPlainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA545168A711200B83408 /* MSPlainTableViewCell.m */; };
 		3ABBA550168A711200B83408 /* MSPlainTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA547168A711200B83408 /* MSPlainTableViewHeaderView.m */; };
 		3ABBA551168A711200B83408 /* MSRightDetailPlainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBA549168A711200B83408 /* MSRightDetailPlainTableViewCell.m */; };
@@ -47,8 +51,19 @@
 		3AAC377616A741900022B04D /* KGNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGNoise.m; sourceTree = "<group>"; };
 		3AAC377C16A741EE0022B04D /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
 		3AAC377D16A741EE0022B04D /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
-		3AB7D36A168A7E100075DB45 /* MSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableViewCell.h; sourceTree = "<group>"; };
-		3AB7D36B168A7E100075DB45 /* MSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableViewCell.m; sourceTree = "<group>"; };
+		3AB7C67916E57E5800CBE9CE /* UILabel+ApplyTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ApplyTextAttributes.h"; sourceTree = "<group>"; };
+		3AB7C67A16E57E5800CBE9CE /* UILabel+ApplyTextAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ApplyTextAttributes.m"; sourceTree = "<group>"; };
+		3AB7C67B16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FirstAppearanceValue.m"; sourceTree = "<group>"; };
+		3AB7C67C16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FirstAppearanceValue.h"; sourceTree = "<group>"; };
+		3AB7C67F16E6ABB600CBE9CE /* MSCollectionViewTableLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCollectionViewTableLayout.h; sourceTree = "<group>"; };
+		3AB7C68016E6ABB600CBE9CE /* MSCollectionViewTableLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCollectionViewTableLayout.m; sourceTree = "<group>"; };
+		3AB7C68216E6B4A400CBE9CE /* MSTableCellEtch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableCellEtch.h; sourceTree = "<group>"; };
+		3AB7C68316E6B4A500CBE9CE /* MSTableCellEtch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableCellEtch.m; sourceTree = "<group>"; };
+		3AB7C68516E6CB4A00CBE9CE /* MSPlainSelectedBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainSelectedBackground.h; sourceTree = "<group>"; };
+		3AB7C68616E6CB4B00CBE9CE /* MSPlainSelectedBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlainSelectedBackground.m; sourceTree = "<group>"; };
+		3AB7C68816E6D6A900CBE9CE /* MSTableKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableKit.h; sourceTree = "<group>"; };
+		3AB7D36A168A7E100075DB45 /* MSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTableCell.h; sourceTree = "<group>"; };
+		3AB7D36B168A7E100075DB45 /* MSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTableCell.m; sourceTree = "<group>"; };
 		3AB7D36E168A83E20075DB45 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		3AB7D36F168A83E20075DB45 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		3AB7D370168A83E20075DB45 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -74,8 +89,6 @@
 		3ABBA532168A707D00B83408 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3ABBA539168A709C00B83408 /* MSExamplePlainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSExamplePlainTableViewController.h; sourceTree = "<group>"; };
 		3ABBA53A168A709C00B83408 /* MSExamplePlainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = MSExamplePlainTableViewController.m; sourceTree = "<group>"; tabWidth = 4; };
-		3ABBA542168A711200B83408 /* MSPlainTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainTableView.h; sourceTree = "<group>"; };
-		3ABBA543168A711200B83408 /* MSPlainTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlainTableView.m; sourceTree = "<group>"; };
 		3ABBA544168A711200B83408 /* MSPlainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainTableViewCell.h; sourceTree = "<group>"; };
 		3ABBA545168A711200B83408 /* MSPlainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlainTableViewCell.m; sourceTree = "<group>"; };
 		3ABBA546168A711200B83408 /* MSPlainTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlainTableViewHeaderView.h; sourceTree = "<group>"; };
@@ -213,12 +226,13 @@
 		3ABBA53D168A711200B83408 /* MSTableKit */ = {
 			isa = PBXGroup;
 			children = (
-				3AB7D36A168A7E100075DB45 /* MSTableViewCell.h */,
-				3AB7D36B168A7E100075DB45 /* MSTableViewCell.m */,
-				3ABBA542168A711200B83408 /* MSPlainTableView.h */,
-				3ABBA543168A711200B83408 /* MSPlainTableView.m */,
+				3AB7C68816E6D6A900CBE9CE /* MSTableKit.h */,
+				3AB7D36A168A7E100075DB45 /* MSTableCell.h */,
+				3AB7D36B168A7E100075DB45 /* MSTableCell.m */,
 				3ABBA544168A711200B83408 /* MSPlainTableViewCell.h */,
 				3ABBA545168A711200B83408 /* MSPlainTableViewCell.m */,
+				3AB7C68516E6CB4A00CBE9CE /* MSPlainSelectedBackground.h */,
+				3AB7C68616E6CB4B00CBE9CE /* MSPlainSelectedBackground.m */,
 				3ABBA548168A711200B83408 /* MSRightDetailPlainTableViewCell.h */,
 				3ABBA549168A711200B83408 /* MSRightDetailPlainTableViewCell.m */,
 				3ABBA54A168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.h */,
@@ -229,6 +243,14 @@
 				3ABBA547168A711200B83408 /* MSPlainTableViewHeaderView.m */,
 				E7D624BB16C6EADC00BF49A2 /* MSTableView.h */,
 				E7D624BC16C6EADC00BF49A2 /* MSTableView.m */,
+				3AB7C67916E57E5800CBE9CE /* UILabel+ApplyTextAttributes.h */,
+				3AB7C67A16E57E5800CBE9CE /* UILabel+ApplyTextAttributes.m */,
+				3AB7C67C16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.h */,
+				3AB7C67B16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.m */,
+				3AB7C67F16E6ABB600CBE9CE /* MSCollectionViewTableLayout.h */,
+				3AB7C68016E6ABB600CBE9CE /* MSCollectionViewTableLayout.m */,
+				3AB7C68216E6B4A400CBE9CE /* MSTableCellEtch.h */,
+				3AB7C68316E6B4A500CBE9CE /* MSTableCellEtch.m */,
 			);
 			name = MSTableKit;
 			path = ../../MSTableKit;
@@ -313,16 +335,20 @@
 				3ABBA529168A707D00B83408 /* main.m in Sources */,
 				3ABBA52D168A707D00B83408 /* MSAppDelegate.m in Sources */,
 				3ABBA53B168A709C00B83408 /* MSExamplePlainTableViewController.m in Sources */,
-				3ABBA54E168A711200B83408 /* MSPlainTableView.m in Sources */,
 				3ABBA54F168A711200B83408 /* MSPlainTableViewCell.m in Sources */,
 				3ABBA550168A711200B83408 /* MSPlainTableViewHeaderView.m in Sources */,
 				3ABBA551168A711200B83408 /* MSRightDetailPlainTableViewCell.m in Sources */,
 				3ABBA552168A711200B83408 /* MSSubtitleDetailPlainTableViewCell.m in Sources */,
-				3AB7D36C168A7E100075DB45 /* MSTableViewCell.m in Sources */,
+				3AB7D36C168A7E100075DB45 /* MSTableCell.m in Sources */,
 				3AAC377716A741900022B04D /* KGNoise.m in Sources */,
 				3AAC378316A741EE0022B04D /* UIColor+Expanded.m in Sources */,
 				3AAA6FEB16BC36AA0040B6E7 /* MSTableViewHeaderFooterView.m in Sources */,
 				E7D624BD16C6EADC00BF49A2 /* MSTableView.m in Sources */,
+				3AB7C67D16E57E5800CBE9CE /* UILabel+ApplyTextAttributes.m in Sources */,
+				3AB7C67E16E57E5800CBE9CE /* NSObject+FirstAppearanceValue.m in Sources */,
+				3AB7C68116E6ABB700CBE9CE /* MSCollectionViewTableLayout.m in Sources */,
+				3AB7C68416E6B4A500CBE9CE /* MSTableCellEtch.m in Sources */,
+				3AB7C68716E6CB4C00CBE9CE /* MSPlainSelectedBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

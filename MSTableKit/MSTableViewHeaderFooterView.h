@@ -8,27 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
-@interface MSTableViewHeaderFooterView : UITableViewHeaderFooterView
-#else
-@interface MSTableViewHeaderFooterView : UIView
-#endif
+@interface MSTableViewHeaderFooterView : UICollectionReusableView
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-@property (nonatomic, strong, readonly) UILabel* textLabel;
-@property (nonatomic, strong, readonly) UILabel* detailTextLabel;
-#endif
+@property (nonatomic, strong, readonly) UIView *contentView;
+@property (nonatomic, strong, readonly) UILabel *title;
+@property (nonatomic, strong, readonly) UILabel *detail;
 
 @property (nonatomic, strong) NSDictionary *titleTextAttributes UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) NSDictionary *detailTextAttributes UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, assign) UIEdgeInsets padding UI_APPEARANCE_SELECTOR;
+
 - (void)initialize;
 - (void)configureViews;
 
-// Sizing Calculation
-+ (UIFont *)defaultTextLabelFont;
-+ (UIFont *)defaultDetailTextLabelFont;
++ (void)applyDefaultAppearance;
 + (CGFloat)heightForText:(NSString *)text forWidth:(CGFloat)width;
-+ (CGSize)padding;
++ (CGFloat)height;
 
 @end
