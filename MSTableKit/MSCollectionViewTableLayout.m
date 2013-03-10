@@ -27,7 +27,6 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
 - (void)dealloc
 {
     [self removeObserver:self forKeyPath:@"collectionView"];
-    [self removeObserver:self forKeyPath:@"collectionView.frame"];
 }
 
 - (id)init
@@ -42,7 +41,6 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
         self.sectionInset = UIEdgeInsetsZero;
         
         [self addObserver:self forKeyPath:@"collectionView" options:NSKeyValueObservingOptionNew context:NULL];
-        [self addObserver:self forKeyPath:@"collectionView.frame" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -53,21 +51,16 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
     if ([keyPath isEqualToString:@"collectionView"]) {
         if (change[NSKeyValueChangeNewKey]) {
             self.collectionView.alwaysBounceVertical = YES;
-            
             // Whoa whoa, check out this mother fucker
             self.collectionView.delegate = self;
             self.collectionView.dataSource = self;
         }
     }
-    else if ([keyPath isEqualToString:@"collectionView.frame"]) {
-        // Required to resize table cells
-        [self invalidateLayout];
-    }
 }
 
 - (UICollectionView *)collectionView
 {
-    UICollectionView *collectionView = [super collectionView];;
+    UICollectionView *collectionView = [super collectionView];
     collectionView.delegate = self;
     collectionView.dataSource = self;
     return collectionView;
@@ -143,7 +136,7 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBound
 {
-    return self.stickySectionHeaders;
+    return YES;
 }
 
 #pragma mark - MSCollectionViewTableLayout
