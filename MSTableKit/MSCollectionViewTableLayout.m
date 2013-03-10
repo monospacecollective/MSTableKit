@@ -27,6 +27,7 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
 - (void)dealloc
 {
     [self removeObserver:self forKeyPath:@"collectionView"];
+    [self removeObserver:self forKeyPath:@"collectionView.frame"];
 }
 
 - (id)init
@@ -41,6 +42,7 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
         self.sectionInset = UIEdgeInsetsZero;
         
         [self addObserver:self forKeyPath:@"collectionView" options:NSKeyValueObservingOptionNew context:NULL];
+        [self addObserver:self forKeyPath:@"collectionView.frame" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -48,12 +50,18 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     // When there's a new UICollectionView set, configure it
-    if (change[NSKeyValueChangeNewKey]) {
-        self.collectionView.alwaysBounceVertical = YES;
-        
-        // Whoa whoa, check out this mother fucker
-        self.collectionView.delegate = self;
-        self.collectionView.dataSource = self;
+    if ([keyPath isEqualToString:@"collectionView"]) {
+        if (change[NSKeyValueChangeNewKey]) {
+            self.collectionView.alwaysBounceVertical = YES;
+            
+            // Whoa whoa, check out this mother fucker
+            self.collectionView.delegate = self;
+            self.collectionView.dataSource = self;
+        }
+    }
+    else if ([keyPath isEqualToString:@"collectionView.frame"]) {
+        // Required to resize table cells
+        [self invalidateLayout];
     }
 }
 
@@ -285,6 +293,5 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
         return UIEdgeInsetsMake((sectionSpacing / 2.0), 0.0, (sectionSpacing / 2.0), 0.0);
     }
 }
-
 
 @end
