@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.summary      = 'MSTableKit enables significantly deeper customization of the visual appearance of iOS tables'
   s.homepage     = 'https://github.com/monospacecollective/MSTableKit'
   s.author       = { 'Eric Horacek' => 'eric@monospacecollective.com' }
-  s.source       = { :git => 'https://github.com/monospacecollective/MSTableKit.git', :tag => s.version.to_s }
+  s.source       = { :git => 'https://github.com/monospacecollective/MSTableKit.git' }
 
   s.source_files = 'MSTableKit/*.{h,m}'
   
