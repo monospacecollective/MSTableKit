@@ -132,7 +132,7 @@
     
     CGRect shapeRect = (CGRect){CGPointZero, self.frame.size};
     
-    self.shapeLayer.path = [[self cellPathForRect:shapeRect inset:CGSizeZero offset:CGSizeZero cornerRadius:_cornerRadius] CGPath];
+    self.shapeLayer.path = [[self cellPathForRect:shapeRect inset:CGSizeMake(0.5, 0.5) offset:CGSizeZero cornerRadius:_cornerRadius] CGPath];
     self.shapeLayer.fillColor = [[self fillColorForState:controlState] CGColor];
     
     self.shapeLayer.strokeColor = [[self borderColorForState:controlState] CGColor];
@@ -149,13 +149,13 @@
     
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, CGRectInset(shapeRect, -10.0, -10.0));
-    CGPathAddPath(path, NULL, [[self cellPathForRect:shapeRect inset:CGSizeMake(0.5, 0.5) offset:CGSizeZero cornerRadius:(_cornerRadius - 2)] CGPath]);
+    CGPathAddPath(path, NULL, [[self cellPathForRect:shapeRect inset:CGSizeMake(1.0, 1.0) offset:CGSizeZero cornerRadius:(_cornerRadius - 2)] CGPath]);
     CGPathCloseSubpath(path);
     self.innerShadowLayer.path = path;
     CGPathRelease(path);
     self.innerShadowLayer.fillColor = [[self innerShadowColorForState:controlState] CGColor];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = [[self cellPathForRect:shapeRect inset:CGSizeMake(0.5, 0.5) offset:CGSizeZero cornerRadius:(_cornerRadius - 2)] CGPath];
+    maskLayer.path = [[self cellPathForRect:shapeRect inset:CGSizeMake(1.0, 1.0) offset:CGSizeZero cornerRadius:(_cornerRadius - 2)] CGPath];
     self.innerShadowLayer.mask = maskLayer;
     
     self.innerShadowLayer.shadowOpacity = 1.0;
@@ -184,18 +184,18 @@
     CGRect pathRect = CGRectInset(rect, insets.width, insets.height);
     UIBezierPath *bezierPath;
     if (_type == MSGroupedCellBackgroundViewTypeMiddle) {
+        pathRect.size.height += 1.0;
         bezierPath = [UIBezierPath bezierPathWithRect:pathRect];
     } else {
         CGSize cornerRadii = CGSizeMake(_cornerRadius, _cornerRadius);
-        UIRectCorner corners;
+        UIRectCorner corners = 0;
         if (_type == MSGroupedCellBackgroundViewTypeTop) {
             corners = (UIRectCornerTopLeft | UIRectCornerTopRight);
+            pathRect.size.height += 1.0;
         } else if (_type == MSGroupedCellBackgroundViewTypeBottom) {
             corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight);
         } else if (_type == MSGroupedCellBackgroundViewTypeSingle) {
             corners = UIRectCornerAllCorners;
-        } else {
-            corners = 0;
         }
         bezierPath = [UIBezierPath bezierPathWithRoundedRect:pathRect
                                            byRoundingCorners:corners
