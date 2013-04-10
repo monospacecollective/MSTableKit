@@ -65,11 +65,11 @@
         _innerShadowBlurDictionary = [[NSMutableDictionary alloc] init];
         
         // Color Defaults, have to do it this was as it messes up UIAppearance
-        _borderColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithWhite:0.5 alpha:1.0];
-        _borderColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithWhite:0.4 alpha:1.0];
+        _borderColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithHexString:@"cccccc"];
+        _borderColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithHexString:@"999999"];
         
-        _fillColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithHexString:@"999999"];
-        _fillColorDictionary[@(UIControlStateHighlighted)] = [UIColor grayColor];
+        _fillColorDictionary[@(UIControlStateNormal)] = [UIColor colorWithHexString:@"eeeeee"];
+        _fillColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithHexString:@"cccccc"];
         
         _shadowColorDictionary[@(UIControlStateNormal)] = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         _shadowBlurDictionary[@(UIControlStateNormal)] = @(0.0);
@@ -83,8 +83,8 @@
         _innerShadowBlurDictionary[@(UIControlStateNormal)] = @(0.0);
         _innerShadowOffsetDictionary[@(UIControlStateNormal)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 0.0)];
         
-        _innerShadowColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithWhite:0.3 alpha:1.0];
-        _innerShadowBlurDictionary[@(UIControlStateHighlighted)] = @(4.0);
+        _innerShadowColorDictionary[@(UIControlStateHighlighted)] = [UIColor colorWithWhite:0.5 alpha:1.0];
+        _innerShadowBlurDictionary[@(UIControlStateHighlighted)] = @(3.0);
         _innerShadowOffsetDictionary[@(UIControlStateHighlighted)] = [NSValue valueWithCGSize:CGSizeMake(0.0, 0.5)];
     }
     return self;

@@ -29,7 +29,7 @@
     [self.groupedCellBackgroundView setInnerShadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3] forState:UIControlStateNormal];
     
     self.title.textAlignment = NSTextAlignmentCenter;
-    self.buttonBackgroundColor = [UIColor darkGrayColor];
+    self.buttonBackgroundColor = [UIColor lightGrayColor];
 }
 
 #pragma mark - MSButtonGroupedTableViewCell

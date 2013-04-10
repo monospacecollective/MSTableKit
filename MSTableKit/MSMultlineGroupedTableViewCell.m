@@ -13,9 +13,12 @@
 
 #pragma mark - UIView
 
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    [super layoutSubviews];
+    [super updateConstraints];
+    
+    NSDictionary *views = @{ @"title" : self.title };
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:nil views:views]];
 }
 
 #pragma mark - MSGroupedTableViewCell

@@ -8,6 +8,7 @@
 
 #import "MSTableCell.h"
 #import "UILabel+ApplyTextAttributes.h"
+#import "UIView+AutoLayout.h"
 
 //#define LAYOUT_DEBUG
 
@@ -30,60 +31,7 @@
 
 @dynamic controlState;
 
-#pragma mark - NSObject
-
-+ (void)initialize
-{
-    [super initialize];
-    [self applyDefaultAppearance];
-}
-
 #pragma mark - UIView
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-
-    self.contentView.frame = UIEdgeInsetsInsetRect((CGRect){CGPointZero, self.frame.size}, self.padding);
-    self.backgroundView.frame = UIEdgeInsetsInsetRect((CGRect){CGPointZero, self.frame.size}, self.backgroundViewPadding);
-    
-    // Accessory Sizing
-    [self.accessoryView sizeToFit];
-    CGRect accessoryViewFrame = self.accessoryView.frame;
-    accessoryViewFrame.origin.x = CGRectGetWidth(self.contentView.frame) - CGRectGetWidth(accessoryViewFrame);
-    accessoryViewFrame.origin.y = nearbyintf((CGRectGetHeight(self.contentView.frame) / 2.0) - (CGRectGetHeight(accessoryViewFrame) / 2.0));
-    self.accessoryView.frame = accessoryViewFrame;
-    
-    // Title Sizing
-    CGSize maxTitleSize;
-    if (self.accessoryView) {
-        maxTitleSize = CGSizeMake((CGRectGetMinX(self.accessoryView.frame) - self.contentMargin), CGRectGetHeight(self.contentView.frame));
-    } else {
-        maxTitleSize = CGSizeMake(CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
-    }
-    CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:maxTitleSize lineBreakMode:self.title.lineBreakMode];
-    CGRect titleFrame =  self.title.frame;
-    titleFrame.size = CGSizeMake(maxTitleSize.width, titleSize.height);
-    titleFrame.origin.y = nearbyintf((CGRectGetHeight(self.contentView.frame) / 2.0) - (CGRectGetHeight(titleFrame) / 2.0));
-    titleFrame.origin.x = 0.0;
-    self.title.frame = titleFrame;
-    
-    // Detail Sizing (Detail is not visible by default)
-    self.detail.frame = CGRectZero;
-    
-#if defined(LAYOUT_DEBUG)
-    // Color the background of the labels in the content view red
-    for (UIView *subview in self.contentView.subviews) {
-        if ([subview isKindOfClass:UILabel.class]) {
-            subview.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        }
-    }
-    self.contentView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.25];
-    self.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.25];
-#endif
-}
-
-#pragma mark - UITableViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -103,17 +51,55 @@
     return self;
 }
 
+- (void)updateConstraints
+{
+    [super updateConstraints];
+    
+    [self.contentView removeConstraints:self.contentView.constraints];
+    
+    [self.contentView pinToSuperviewEdgesWithInsets:self.padding];
+    [self.backgroundView pinToSuperviewEdgesWithInsets:self.backgroundViewPadding];
+    
+    [self.title centerInContainerOnAxis:NSLayoutAttributeCenterY];
+    
+    if (self.accessoryView) {
+        [self.accessoryView centerInContainerOnAxis:NSLayoutAttributeCenterY];
+        NSDictionary *views = @{ @"title" : self.title, @"accessory" : self.accessoryView };
+        NSDictionary *metrics = @{ @"contentMargin" : @(self.contentMargin), @"accessoryWidth" : @(CGRectGetWidth(self.accessoryView.frame)) };
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]-contentMargin-[accessory(==accessoryWidth)]|" options:0 metrics:metrics views:views]];
+    } else {
+        NSDictionary *views = @{ @"title" : self.title };
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]|" options:0 metrics:nil views:views]];
+    }
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+#if defined(LAYOUT_DEBUG)
+    // Color the background of the labels in the content view red
+    for (UIView *subview in self.contentView.subviews) {
+        if ([subview isKindOfClass:UILabel.class] || [subview isKindOfClass:UITextField.class]) {
+            subview.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        }
+    }
+    self.contentView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.25];
+    self.backgroundView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.25];
+#endif
+}
+
+#pragma mark - UITableViewCell
+
 - (void)setAccessoryType:(MSTableCellAccessoryType)accessoryType
 {
-//    [super setAccessoryType:accessoryType];
     _accessoryType = accessoryType;
     
     switch (accessoryType) {
-        case UITableViewCellAccessoryNone: {
+        case MSTableCellAccessoryNone:
             [self.accessoryView removeFromSuperview];
             self.accessoryView = nil;
             break;
-        }
         case MSTableCellAccessoryDisclosureIndicator:
         case MSTableCellAccessoryCheckmark:
         case MSTableCellAccessoryStarFull:
@@ -128,12 +114,13 @@
             break;
         }
     }
+    
+    [self setNeedsUpdateConstraints];
 }
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    [self layoutSubviews];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
@@ -154,6 +141,9 @@
 
 - (void)initialize
 {
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _selectionStyle = MSTableCellSelectionStyleIndent;
     
     _titleTextAttributesForState = [NSMutableDictionary new];
@@ -163,14 +153,17 @@
     
     _title = [UILabel new];
     self.title.backgroundColor = [UIColor clearColor];
+    self.title.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.title];
     
     _detail = [UILabel new];
     self.detail.backgroundColor = [UIColor clearColor];
+    self.detail.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.detail];
     
     _accessory = [[UILabel alloc] init];
     self.accessory.backgroundColor = [UIColor clearColor];
+    self.accessory.translatesAutoresizingMaskIntoConstraints = NO;
     self.accessory.font = [UIFont fontWithName:@"Zapf Dingbats" size:18.0];
     
     _accessoryCharacterForAccessoryType[@(MSTableCellAccessoryCheckmark)] = @"\U00002713";
@@ -194,17 +187,17 @@
 + (void)applyDefaultAppearance
 {
     CGFloat horizontalPadding = 10.0;
-    CGFloat verticalPadding = 0.0;
+    CGFloat verticalPadding = 1.0;
     [self.appearance setPadding:UIEdgeInsetsMake(verticalPadding, horizontalPadding, verticalPadding, horizontalPadding)];
     [self.appearance setContentMargin:5.0];
+    
+    [self.appearance setTitleTextAttributes:@{ UITextAttributeFont: [UIFont boldSystemFontOfSize:17.0] } forState:UIControlStateNormal];
 }
 
 + (CGFloat)height
 {
     return 44.0;
 }
-
-#pragma mark Control State Accessors
 
 - (UIControlState)controlState
 {
@@ -311,6 +304,12 @@
 - (NSString *)accessoryCharacterForAccessoryType:(MSTableCellAccessoryType)accessoryType UI_APPEARANCE_SELECTOR
 {
     return _accessoryCharacterForAccessoryType[@(accessoryType)];
+}
+
+- (void)setPadding:(UIEdgeInsets)padding
+{
+    _padding = padding;
+    [self setNeedsUpdateConstraints];
 }
 
 @end

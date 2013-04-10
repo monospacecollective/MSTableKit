@@ -14,14 +14,6 @@
 
 @implementation MSTableViewHeaderFooterView
 
-#pragma mark - NSObject
-
-+ (void)initialize
-{
-    [super initialize];
-    [self applyDefaultAppearance];
-}
-
 #pragma mark - UIView
 
 - (id)initWithCoder:(NSCoder *)aDecoder

@@ -7,37 +7,29 @@
 //
 
 #import "MSSubtitleDetailPlainTableViewCell.h"
+#import "UIView+AutoLayout.h"
 
 @implementation MSSubtitleDetailPlainTableViewCell
 
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    [super layoutSubviews];
+    [super updateConstraints];
     
-    // Title Sizing
-    CGSize maxTitleSize;
-    if (self.accessoryView) {
-        maxTitleSize = CGSizeMake((CGRectGetMinX(self.accessoryView.frame) - self.contentMargin), CGRectGetHeight(self.contentView.frame));
-    } else {
-        maxTitleSize = CGSizeMake(CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
-    }
-    CGSize titleSize = [self.title.text sizeWithFont:self.title.font forWidth:maxTitleSize.width lineBreakMode:self.title.lineBreakMode];
-    CGRect titleFrame =  self.title.frame;
-    titleFrame.size = CGSizeMake(maxTitleSize.width, titleSize.height);
-    titleFrame.origin = CGPointZero;
-    self.title.frame = titleFrame;
+    [self.contentView removeConstraints:self.contentView.constraints];
     
-    // Detail Sizing
-    CGSize maxDetailSize;
     if (self.accessoryView) {
-        maxDetailSize = CGSizeMake((CGRectGetMinX(self.accessoryView.frame) - self.contentMargin), CGRectGetHeight(self.contentView.frame));
+        [self.accessoryView centerInContainerOnAxis:NSLayoutAttributeCenterY];
+        NSDictionary *views = @{ @"title" : self.title, @"detail" : self.detail, @"accessory" : self.accessoryView };
+        NSDictionary *metrics = @{ @"contentMargin" : @(self.contentMargin), @"accessoryWidth" : @(CGRectGetWidth(self.accessoryView.frame)) };
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]-contentMargin-[accessory(==accessoryWidth)]|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[detail]-contentMargin-[accessory(==accessoryWidth)]|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[title]-(>=0)-[detail]-(>=0)-|" options:0 metrics:nil views:views]];
     } else {
-        maxDetailSize = CGSizeMake(CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
+        NSDictionary *views = @{ @"title" : self.title, @"detail" : self.detail };
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[detail]|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[title]-(>=0)-[detail]-(>=0)-|" options:0 metrics:nil views:views]];
     }
-    CGSize detailSize = [self.title.text sizeWithFont:self.detail.font forWidth:maxDetailSize.width lineBreakMode:self.detail.lineBreakMode];
-    CGRect detailFrame =  self.detail.frame;
-    detailFrame.size = CGSizeMake(maxDetailSize.width, detailSize.height);
-    detailFrame.origin.y = CGRectGetMaxY(self.title.frame) - 2.0;
-    self.detail.frame = detailFrame;}
+}
 
 @end

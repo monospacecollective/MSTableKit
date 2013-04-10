@@ -218,6 +218,7 @@ NSString *const MSCollectionElementKindHeaderEtch = @"MSCollectionElementKindHea
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.collectionView endEditing:YES];
     NSDictionary *row = self.sections[indexPath.section][MSTableSectionRows][indexPath.row];
     void (^itemSelectionBlock)() = row[MSTableItemSelectionBlock];
     if (itemSelectionBlock) {

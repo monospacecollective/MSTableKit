@@ -16,14 +16,15 @@
 {
     [super initialize];
     self.groupedCellBackgroundView = [[MSGroupedCellBackgroundView alloc] init];
+    self.groupedCellBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     self.backgroundView = self.groupedCellBackgroundView;
 }
 
 + (void)applyDefaultAppearance
 {
-    CGFloat horizontalPadding = 20.0;
-    CGFloat verticalPadding = 10.0;
-//    [self.appearance setPadding:UIEdgeInsetsMake(verticalPadding, horizontalPadding, verticalPadding, horizontalPadding)];
+    [super applyDefaultAppearance];
+    [self.appearance setPadding:UIEdgeInsetsMake(0.0, 20.0, 0.0, 20.0)];
     [self.appearance setBackgroundViewPadding:UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)];
 }
 

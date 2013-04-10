@@ -16,4 +16,5 @@ Pod::Spec.new do |s|
 
   s.dependency 'UIColor-Utilities'    , '~> 1.0.1'
   s.dependency 'KGNoise'              , '~> 1.1.0'
+  s.dependency 'UIView-Autolayout'
 end

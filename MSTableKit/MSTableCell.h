@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, MSTableCellSelectionStyle) {
 };
 
 typedef NS_ENUM(NSInteger, MSTableCellAccessoryType) {
-    MSTableCellAccessoryTypeNone,
+    MSTableCellAccessoryNone,
     MSTableCellAccessoryDisclosureIndicator,
     MSTableCellAccessoryDetailDisclosureButton,
     MSTableCellAccessoryCheckmark,

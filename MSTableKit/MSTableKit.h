@@ -33,6 +33,7 @@
 #import "MSButtonGroupedTableViewCell.h"
 #import "MSMultlineGroupedTableViewCell.h"
 #import "MSMultilineRightDetailGroupedTableViewCell.h"
+#import "MSTextFieldGroupedTableViewCell.h"
 
 // Views
 #import "MSPlainSelectedBackground.h"
